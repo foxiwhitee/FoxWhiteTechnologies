@@ -40,11 +40,10 @@ public class BlockCustomSpreader extends FoxBaseBlock implements ITileEntityProv
     private final Type type;
 
     public BlockCustomSpreader(String name, Type type) {
-        super(name);
+        super(FoxWTCore.MODID, name);
         this.type = type;
         setHardness(2.0F);
         setStepSound(soundTypeWood);
-        setBlockName(name);
         setCreativeTab(FoxWTCore.TAB);
     }
 

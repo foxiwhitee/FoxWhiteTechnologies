@@ -5,7 +5,7 @@ import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import foxiwhitee.FoxWhiteTechnologies.ModBlocks;
-import foxiwhitee.FoxWhiteTechnologies.client.ManaPoolInfoRenderer;
+import foxiwhitee.FoxWhiteTechnologies.client.ManaInfoRenderer;
 import foxiwhitee.FoxWhiteTechnologies.client.render.RenderCustomManaPool;
 import foxiwhitee.FoxWhiteTechnologies.client.render.RenderCustomSpreader;
 import foxiwhitee.FoxWhiteTechnologies.client.render.charger.RenderItemManaCharger;
@@ -20,14 +20,9 @@ import foxiwhitee.FoxWhiteTechnologies.tile.spreaders.TileAsgardSpreader;
 import foxiwhitee.FoxWhiteTechnologies.tile.spreaders.TileHelhelmSpreader;
 import foxiwhitee.FoxWhiteTechnologies.tile.spreaders.TileMidgardSpreader;
 import foxiwhitee.FoxWhiteTechnologies.tile.spreaders.TileValhallaSpreader;
-import net.minecraft.block.Block;
-import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
 import net.minecraft.item.Item;
-import net.minecraftforge.client.IItemRenderer;
 import net.minecraftforge.client.MinecraftForgeClient;
 import net.minecraftforge.common.MinecraftForge;
-
-import java.util.Map;
 
 public class ClientProxy extends CommonProxy {
     public void preInit(FMLPreInitializationEvent event) {
@@ -36,7 +31,7 @@ public class ClientProxy extends CommonProxy {
 
     public void init(FMLInitializationEvent event) {
         super.init(event);
-        MinecraftForge.EVENT_BUS.register(new ManaPoolInfoRenderer());
+        MinecraftForge.EVENT_BUS.register(new ManaInfoRenderer());
         if (ContentConfig.enableCharger) {
             MinecraftForgeClient.registerItemRenderer(Item.getItemFromBlock(ModBlocks.MANA_CHARGER), new RenderItemManaCharger());
             ClientRegistry.bindTileEntitySpecialRenderer(TileManaCharger.class, new RenderManaCharger());

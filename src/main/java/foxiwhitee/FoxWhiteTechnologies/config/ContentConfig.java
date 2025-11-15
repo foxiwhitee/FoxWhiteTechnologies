@@ -20,4 +20,7 @@ public class ContentConfig {
     @ConfigValue(category = "Content", desc = "Enable New Ingots")
     public static boolean enableIngots = true;
 
+
+    @ConfigValue(category = "Content.Mechanic", desc = "Enable Mechanic Rune Altar")
+    public static boolean enableMechanicRuneAltar = true;
 }

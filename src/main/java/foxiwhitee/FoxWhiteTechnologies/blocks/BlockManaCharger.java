@@ -21,10 +21,8 @@ public class BlockManaCharger extends FoxBaseBlock implements ITileEntityProvide
     public IIcon iIcon;
 
     public BlockManaCharger(String name) {
-        super(name);
+        super(FoxWTCore.MODID, name);
         setHardness(3.0F);
-        setBlockName(name);
-        setBlockTextureName(FoxWTCore.MODID.toLowerCase() + ":" + name);
         setCreativeTab(FoxWTCore.TAB);
         setBlockBounds(0.0F, 0.0F, 0.0F, 1.0F, 0.2F, 1.0F);
         this.setLightOpacity(255);

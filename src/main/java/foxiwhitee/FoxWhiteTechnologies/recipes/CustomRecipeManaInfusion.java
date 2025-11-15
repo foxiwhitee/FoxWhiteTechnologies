@@ -4,6 +4,7 @@ import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
 import vazkii.botania.api.recipe.RecipeManaInfusion;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class CustomRecipeManaInfusion extends RecipeManaInfusion implements IBotanyManaRecipe {
@@ -24,7 +25,9 @@ public class CustomRecipeManaInfusion extends RecipeManaInfusion implements IBot
 
     @Override
     public List<Object> getInputs() {
-        return List.of(getInput());
+        List<Object> inputs = new ArrayList<>();
+        inputs.add(getInput());
+        return inputs;
     }
 
     @Override

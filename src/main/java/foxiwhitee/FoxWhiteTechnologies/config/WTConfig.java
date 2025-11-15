@@ -48,4 +48,28 @@ public class WTConfig {
     public static int manaPerSecMidgardSpreader = 700_000;
 
 
+    @ConfigValue(category = "Mechanic.RuneAltar", name = "speed", min = "1", desc = "How many seconds will it take to create an item?")
+    public static int speedRuneAltar = 5;
+
+    @ConfigValue(category = "Mechanic.RuneAltar", desc = "Items that are considered runes are not removed when crafting. Template: modID:name:meta")
+    public static String[] runes = {
+        "Botania:rune",
+        "Botania:rune:1",
+        "Botania:rune:2",
+        "Botania:rune:3",
+        "Botania:rune:4",
+        "Botania:rune:5",
+        "Botania:rune:6",
+        "Botania:rune:7",
+        "Botania:rune:8",
+        "Botania:rune:9",
+        "Botania:rune:10",
+        "Botania:rune:11",
+        "Botania:rune:12",
+        "Botania:rune:13",
+        "Botania:rune:14",
+        "Botania:rune:15",
+    };
+
+
 }

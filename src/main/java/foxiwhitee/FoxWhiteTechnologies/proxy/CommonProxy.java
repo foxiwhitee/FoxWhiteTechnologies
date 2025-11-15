@@ -4,8 +4,12 @@ import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import cpw.mods.fml.common.network.NetworkRegistry;
+import foxiwhitee.FoxLib.container.slots.SlotFiltered;
+import foxiwhitee.FoxLib.items.ItemProductivityCard;
 import foxiwhitee.FoxWhiteTechnologies.ModBlocks;
 import foxiwhitee.FoxWhiteTechnologies.ModItems;
+import net.minecraft.block.Block;
+import vazkii.botania.common.block.BlockLivingrock;
 
 public class CommonProxy {
 
@@ -15,7 +19,8 @@ public class CommonProxy {
     }
 
     public void init(FMLInitializationEvent event) {
-
+        SlotFiltered.filters.put("noLivingRock", stack -> !(Block.getBlockFromItem(stack.getItem()) instanceof BlockLivingrock));
+        SlotFiltered.filters.put("livingRock", stack -> Block.getBlockFromItem(stack.getItem()) instanceof BlockLivingrock);
     }
 
     public void postInit(FMLPostInitializationEvent event) {

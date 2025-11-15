@@ -5,6 +5,7 @@ import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import foxiwhitee.FoxLib.utils.helpers.LocalizationUtils;
 import foxiwhitee.FoxWhiteTechnologies.FoxWTCore;
 import foxiwhitee.FoxWhiteTechnologies.blocks.BlockCustomManaPool;
+import foxiwhitee.FoxWhiteTechnologies.tile.mechanic.TileMechanicManaBlock;
 import foxiwhitee.FoxWhiteTechnologies.util.BlockPos;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.EntityClientPlayerMP;
@@ -20,7 +21,7 @@ import vazkii.botania.common.block.tile.mana.TilePool;
 import java.awt.*;
 import java.util.HashMap;
 
-public class ManaPoolInfoRenderer {
+public class ManaInfoRenderer {
     public int ticks = 0;
 
     public static void drawTexturedQuadFit(double x, double y, double width, double height, double zLevel) {
@@ -36,9 +37,9 @@ public class ManaPoolInfoRenderer {
     public static HashMap<Integer, String> name = new HashMap<>();
 
     static {
-        name.put(Integer.valueOf(0), LocalizationUtils.localize("tile.botania:pool0"));
-        name.put(Integer.valueOf(1), LocalizationUtils.localize("tile.botania:pool1"));
-        name.put(Integer.valueOf(2), LocalizationUtils.localize("tile.botania:pool2"));
+        name.put(0, LocalizationUtils.localize("tile.botania:pool0"));
+        name.put(1, LocalizationUtils.localize("tile.botania:pool1"));
+        name.put(2, LocalizationUtils.localize("tile.botania:pool2"));
     }
 
     public static final ResourceLocation info_texture = new ResourceLocation(FoxWTCore.MODID.toLowerCase(), "textures/gui/info.png");
@@ -56,47 +57,52 @@ public class ManaPoolInfoRenderer {
         if (objectMouseOver != null && objectMouseOver.typeOfHit == MovingObjectPosition.MovingObjectType.BLOCK) {
             BlockPos loc = new BlockPos((World)minecraft.theWorld, objectMouseOver.blockX, objectMouseOver.blockY, objectMouseOver.blockZ);
             TileEntity tileEntity = minecraft.theWorld.getTileEntity(objectMouseOver.blockX, objectMouseOver.blockY, objectMouseOver.blockZ);
-            if (Loader.isModLoaded("Botania") &&
-                    tileEntity instanceof TilePool) {
-                GL11.glPushMatrix();
-                GL11.glEnable(3042);
-                GL11.glBlendFunc(770, 771);
-                GL11.glDepthMask(false);
-                GL11.glTranslated((loc.getX() + 0.5F), (loc.getY() + 0.3F), (loc.getZ() + 0.5F));
-                GL11.glRotatef(180.0F, 1.0F, 0.0F, 0.0F);
-                GL11.glRotatef(180.0F + (Minecraft.getMinecraft()).thePlayer.rotationYaw, 0.0F, 1.0F, 0.0F);
-                GL11.glTranslated(-0.05D, -0.75D, 0.0D);
-                Minecraft.getMinecraft().getTextureManager().bindTexture(info_texture);
-                drawTexturedQuadFit(-0.6D, -0.03D, 1.4D, 0.3D, 0.0D);
-                GL11.glScalef(0.008F, 0.008F, 0.008F);
-                GL11.glTranslatef(-12.0F, 6.0F, 0.0F);
-                String pool = LocalizationUtils.localize(tileEntity.getWorldObj().getBlock(loc.getX(), loc.getY(), loc.getZ()).getUnlocalizedName() + ".name");
+            if (Loader.isModLoaded("Botania") && tileEntity instanceof TilePool) {
+                String name = startRender(loc, tileEntity, 0.3);
                 if (tileEntity.getWorldObj().getBlock(loc.getX(), loc.getY(), loc.getZ()) instanceof vazkii.botania.common.block.mana.BlockPool)
-                    switch (tileEntity.getBlockMetadata()) {
-                        case 0:
-                            pool = LocalizationUtils.localize("tile.botania:pool0.name");
-                            break;
-                        case 1:
-                            pool = LocalizationUtils.localize("tile.botania:pool1.name");
-                            break;
-                        case 2:
-                            pool = LocalizationUtils.localize("tile.botania:pool2.name");
-                            break;
-                        case 3:
-                            pool = LocalizationUtils.localize("tile.botania:pool3.name");
-                            break;
-                    }
+                    name = switch (tileEntity.getBlockMetadata()) {
+                        case 0 -> LocalizationUtils.localize("tile.botania:pool0.name");
+                        case 1 -> LocalizationUtils.localize("tile.botania:pool1.name");
+                        case 2 -> LocalizationUtils.localize("tile.botania:pool2.name");
+                        case 3 -> LocalizationUtils.localize("tile.botania:pool3.name");
+                        default -> name;
+                    };
                 if (tileEntity.getWorldObj().getBlock(loc.getX(), loc.getY(), loc.getZ()) instanceof BlockCustomManaPool)
                     GL11.glTranslated(-12.0D, 0.0D, 0.0D);
                 int manaStorage = ((TilePool)tileEntity).manaCap;
                 int currentMana = ((TilePool)tileEntity).getCurrentMana();
-                String mana = "§7Mana: §6"+ currentMana + "/" + manaStorage;
-                minecraft.fontRenderer.drawString("§6"+ pool, -45, 0, 245);
-                minecraft.fontRenderer.drawString(mana, -45, 10, Color.ORANGE.getRGB());
-                GL11.glDepthMask(true);
-                GL11.glPopMatrix();
+                endRender(minecraft, manaStorage, currentMana, "§6" + name, name);
+            } else if (tileEntity instanceof TileMechanicManaBlock<?>) {
+                String name = startRender(loc, tileEntity, 0.65);
+                int manaStorage = ((TileMechanicManaBlock<?>)tileEntity).getMaxMana();
+                int currentMana = ((TileMechanicManaBlock<?>)tileEntity).getCurrentMana();
+                endRender(minecraft, manaStorage, currentMana, "§6"+ name, name);
             }
         }
         GL11.glPopMatrix();
+    }
+
+    private void endRender(Minecraft minecraft, int manaStorage, int currentMana, String s, String name) {
+        String mana = "§7Mana: §6"+ currentMana + "/" + manaStorage;
+        minecraft.fontRenderer.drawString(s, -45, 0, 245);
+        minecraft.fontRenderer.drawString(mana, -45, 10, Color.ORANGE.getRGB());
+        GL11.glDepthMask(true);
+        GL11.glPopMatrix();
+    }
+
+    private String startRender(BlockPos loc, TileEntity tileEntity, double y) {
+        GL11.glPushMatrix();
+        GL11.glEnable(3042);
+        GL11.glBlendFunc(770, 771);
+        GL11.glDepthMask(false);
+        GL11.glTranslated((loc.getX() + 0.5F), (loc.getY() + y), (loc.getZ() + 0.5F));
+        GL11.glRotatef(180.0F, 1.0F, 0.0F, 0.0F);
+        GL11.glRotatef(180.0F + (Minecraft.getMinecraft()).thePlayer.rotationYaw, 0.0F, 1.0F, 0.0F);
+        GL11.glTranslated(-0.05D, -0.75D, 0.0D);
+        Minecraft.getMinecraft().getTextureManager().bindTexture(info_texture);
+        drawTexturedQuadFit(-0.6D, -0.03D, 1.4D, 0.3D, 0.0D);
+        GL11.glScalef(0.008F, 0.008F, 0.008F);
+        GL11.glTranslatef(-12.0F, 6.0F, 0.0F);
+        return LocalizationUtils.localize(tileEntity.getWorldObj().getBlock(loc.getX(), loc.getY(), loc.getZ()).getUnlocalizedName() + ".name");
     }
 }

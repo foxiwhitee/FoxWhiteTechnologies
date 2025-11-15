@@ -50,7 +50,7 @@ public class BlockCustomManaPool extends FoxBaseBlock implements ITileEntityProv
     private final Type type;
 
     public BlockCustomManaPool(String name, Type type) {
-        super(name);
+        super(FoxWTCore.MODID, name);
         this.maxMana = switch (type) {
             case ASGARD -> WTConfig.manaAsgardPool;
             case HELHELM -> WTConfig.manaHelhelmPool;
@@ -60,8 +60,6 @@ public class BlockCustomManaPool extends FoxBaseBlock implements ITileEntityProv
         };
         this.type = type;
         this.lastFragile = false;
-        this.setBlockName(name);
-        this.setBlockTextureName(FoxWTCore.MODID.toLowerCase() + ":" + name);
         this.setStepSound(soundTypeStone);
         this.setCreativeTab(FoxWTCore.TAB);
         this.setHardness(2.0F);

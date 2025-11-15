@@ -5,17 +5,25 @@ import foxiwhitee.FoxLib.tile.event.TileEvent;
 import foxiwhitee.FoxLib.tile.event.TileEventType;
 import foxiwhitee.FoxLib.tile.inventory.FoxInternalInventory;
 import foxiwhitee.FoxLib.tile.inventory.InvOperation;
+import foxiwhitee.FoxLib.utils.helpers.OreDictUtil;
+import foxiwhitee.FoxWhiteTechnologies.recipes.CustomRecipeRuneAltar;
 import foxiwhitee.FoxWhiteTechnologies.recipes.IBotanyManaRecipe;
+import foxiwhitee.FoxWhiteTechnologies.util.StackOreDict;
 import io.netty.buffer.ByteBuf;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.ScaledResolution;
 import net.minecraft.entity.Entity;
 import net.minecraft.inventory.IInventory;
+import net.minecraft.inventory.InventoryBasic;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.network.NetworkManager;
+import net.minecraft.network.Packet;
+import net.minecraft.network.play.server.S35PacketUpdateTileEntity;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.StatCollector;
 import net.minecraftforge.common.util.ForgeDirection;
+import net.minecraftforge.oredict.OreDictionary;
 import org.lwjgl.opengl.GL11;
 import vazkii.botania.api.mana.spark.ISparkAttachable;
 import vazkii.botania.api.mana.spark.ISparkEntity;
@@ -25,7 +33,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public abstract class TileMechanicManaBlock<T extends IBotanyManaRecipe> extends FoxBaseInvTile implements ISparkAttachable {
-    private int mana, maxMana, progress;
+    private int mana, maxMana = 1000000, progress;
     private final FoxInternalInventory inv = new FoxInternalInventory(this, getInvSize());
     private final FoxInternalInventory output = new FoxInternalInventory(this, getInvOutSize());
 
@@ -33,23 +41,23 @@ public abstract class TileMechanicManaBlock<T extends IBotanyManaRecipe> extends
 
     }
 
-    private T currentRecipe = null;
+    protected T currentRecipe = null;
 
-    private final List<Integer> usedSlots = new ArrayList<>();
+    protected final List<Integer> usedSlots = new ArrayList<>();
 
     @TileEvent(TileEventType.TICK)
-    protected void tick() {
-        if (worldObj.isRemote) {
-            return;
-        }
+    public void tick() {
         updateRecipeIfNeeded();
 
         if (currentRecipe != null && mana >= currentRecipe.getManaUsage()) {
             progress += 1;
 
             if (progress >= getSpeed()) {
-                craftRecipe();
-                mana -= currentRecipe.getManaUsage();
+                if (!worldObj.isRemote) {
+                    craftRecipe();
+                    mana -= currentRecipe.getManaUsage();
+                    currentRecipe = null;
+                }
                 progress = 0;
             }
 
@@ -64,17 +72,11 @@ public abstract class TileMechanicManaBlock<T extends IBotanyManaRecipe> extends
 
         for (int slot : usedSlots) {
             if (inv.getStackInSlot(slot) != null) {
-                if (!inv.getStackInSlot(slot).getItem().getUnlocalizedName().contains("rune"))
-                    inv.getStackInSlot(slot).stackSize--;
-                if (inv.getStackInSlot(slot).stackSize <= 0)
+                ItemStack stack = inv.getStackInSlot(slot);
+
+                if (stack.stackSize <= 0)
                     inv.setInventorySlotContents(slot, null);
             }
-        }
-
-        if (inv.getStackInSlot(0) != null) {
-            inv.getStackInSlot(0).stackSize--;
-            if (inv.getStackInSlot(0).stackSize <= 0)
-                inv.setInventorySlotContents(0, null);
         }
 
         ItemStack out = currentRecipe.getOutput().copy();
@@ -82,16 +84,33 @@ public abstract class TileMechanicManaBlock<T extends IBotanyManaRecipe> extends
 
         for (int slot : usedSlots) {
             ItemStack stack = inv.getStackInSlot(slot);
-            if (stack != null && stack.getItem().getUnlocalizedName().contains("rune")) {
+            consumeItem(stack);
+            if (stack != null) {
                 insertOutput(stack.copy());
             }
         }
-
-
-        currentRecipe = null;
     }
 
-    private void insertOutput(ItemStack stack) {
+    protected void consumeItem(ItemStack stack) {
+        for (Object o : currentRecipe.getInputs()) {
+            if (o instanceof ItemStack temp) {
+                if (temp.getItem() == stack.getItem() && temp.getItemDamage() == stack.getItemDamage()) {
+                    stack.stackSize -= temp.stackSize;
+                    break;
+                }
+            } else if (o instanceof String) {
+                if (OreDictUtil.areStacksEqual(o, stack)) {
+                    stack.stackSize--;
+                }
+            } else if (o instanceof StackOreDict temp) {
+                if (OreDictUtil.areStacksEqual(temp.getOre(), stack)) {
+                    stack.stackSize -= temp.getCount();
+                }
+            }
+        }
+    }
+
+    protected void insertOutput(ItemStack stack) {
         for (int i = 0; i < getInvOutSize(); i++) {
             if (output.getStackInSlot(i) == null) {
                 output.setInventorySlotContents(i, stack);
@@ -108,58 +127,133 @@ public abstract class TileMechanicManaBlock<T extends IBotanyManaRecipe> extends
     protected void updateRecipeIfNeeded() {
         usedSlots.clear();
 
-        if (getInternalInventory().getStackInSlot(0) == null) {
-            currentRecipe = null;
-            return;
-        }
-
-        List<ItemStack> inputs = new ArrayList<>();
+        List<InvEntry> inputs = new ArrayList<>();
 
         for (int i = 0; i < getInvSize(); i++) {
-            if (getInternalInventory().getStackInSlot(i) != null) {
-                inputs.add(getInternalInventory().getStackInSlot(i));
-                usedSlots.add(i);
+            ItemStack stack = getInternalInventory().getStackInSlot(i);
+            if (stack != null) {
+                inputs.add(new InvEntry(i, stack));
             }
         }
 
         currentRecipe = getRecipe(inputs);
     }
 
-    protected abstract T getRecipe(List<ItemStack> stacks);
+    protected T getRecipe(List<InvEntry> entries) {
 
-    protected T getRecipe(List<ItemStack> stacks, Object... params) {
-        return getRecipe(stacks);
+        usedSlots.clear();
+
+        for (T r : getRecipes()) {
+            List<Integer> matchedSlots = new ArrayList<>();
+            List<ItemStack> matchedStacks = matchesStacks(new ArrayList<>(r.getInputs()), matchedSlots, entries);
+
+            if (matchedStacks != null) {
+                InventoryBasic inv = new InventoryBasic("null", false, matchedStacks.size());
+                for (int i = 0; i < matchedStacks.size(); i++)
+                    inv.setInventorySlotContents(i, matchedStacks.get(i));
+
+                if (r.upgradedMatches(inv, true)) {
+
+                    usedSlots.addAll(matchedSlots);
+                    return r;
+                }
+            }
+        }
+
+        return null;
+    }
+
+    protected abstract List<T> getRecipes();
+
+    protected T getRecipe(List<InvEntry> entries, Object... params) {
+        return getRecipe(entries);
+    }
+
+    protected List<ItemStack> matchesStacks(List<Object> required, List<Integer> matchedSlots, List<InvEntry> entries) {
+        List<ItemStack> matchedStacks = new ArrayList<>();
+
+        List<InvEntry> available = new ArrayList<>(entries);
+
+        matchLoop:
+        for (Object req : required) {
+            for (int i = 0; i < available.size(); i++) {
+
+                InvEntry e = available.get(i);
+                if (e == null) continue;
+
+                if (matchesIngredient(req, e.stack)) {
+                    matchedStacks.add(e.stack);
+                    matchedSlots.add(e.slot);
+                    available.set(i, null);
+                    continue matchLoop;
+                }
+            }
+            matchedStacks = null;
+            matchedSlots = null;
+            break;
+        }
+        return matchedStacks;
+    }
+
+    protected boolean matchesIngredient(Object req, ItemStack stack) {
+        if (req instanceof ItemStack st) {
+            return OreDictionary.itemMatches(st, stack, false);
+        }
+        if (req instanceof String ore) {
+            int id = OreDictionary.getOreID(ore);
+            for (ItemStack s : OreDictionary.getOres(id)) {
+                if (OreDictionary.itemMatches(s, stack, false))
+                    return true;
+            }
+        }
+        if (req instanceof List<?> list) {
+            for (Object o : list) {
+                if (matchesIngredient(o, stack)) return true;
+            }
+        }
+        if (req instanceof StackOreDict ore) {
+            return ore.check(stack, false);
+        }
+        return false;
     }
 
     @TileEvent(TileEventType.SERVER_NBT_READ)
     public void readFromNBT_(NBTTagCompound data) {
         super.readFromNBT_(data);
-        data.setInteger("mana", mana);
-        data.setInteger("maxMana", maxMana);
+        mana = data.getInteger("mana");
+        maxMana = data.getInteger("maxMana");
+        progress = data.getInteger("progress");
     }
 
     @TileEvent(TileEventType.SERVER_NBT_WRITE)
     public void writeToNBT_(NBTTagCompound data) {
         super.writeToNBT_(data);
-        mana = data.getInteger("mana");
-        maxMana = data.getInteger("maxMana");
+        data.setInteger("mana", mana);
+        data.setInteger("maxMana", maxMana);
+        data.setInteger("progress", progress);
     }
 
     @TileEvent(TileEventType.CLIENT_NBT_WRITE)
-    private void writeToStream(ByteBuf data) {
+    public void writeToStream(ByteBuf data) {
         data.writeInt(mana);
         data.writeInt(maxMana);
+        data.writeInt(progress);
     }
 
     @TileEvent(TileEventType.CLIENT_NBT_READ)
-    private void readFromStream(ByteBuf data) {
+    public void readFromStream(ByteBuf data) {
         mana = data.readInt();
         maxMana = data.readInt();
+        progress = data.readInt();
     }
 
     @Override
     public FoxInternalInventory getInternalInventory() {
         return inv;
+    }
+
+    public FoxInternalInventory getOutputInventory() {
+        return output;
     }
 
     @Override
@@ -229,7 +323,7 @@ public abstract class TileMechanicManaBlock<T extends IBotanyManaRecipe> extends
 
     @Override
     public int getAvailableSpaceForMana() {
-        return Math.max(0, 100000000 - this.getCurrentMana());
+        return Math.max(0, maxMana - this.getCurrentMana());
     }
 
     @Override
@@ -260,7 +354,6 @@ public abstract class TileMechanicManaBlock<T extends IBotanyManaRecipe> extends
             if (this.mana > this.maxMana) {
                 this.mana = this.maxMana;
             }
-
         }
     }
 
@@ -274,6 +367,10 @@ public abstract class TileMechanicManaBlock<T extends IBotanyManaRecipe> extends
         return this.mana;
     }
 
+    public int getMaxMana() {
+        return maxMana;
+    }
+
     public void renderHUD(Minecraft mc, ScaledResolution res) {
         ItemStack pool = new ItemStack(this.getBlockType());
         String name = StatCollector.translateToLocal(pool.getUnlocalizedName());
@@ -284,8 +381,21 @@ public abstract class TileMechanicManaBlock<T extends IBotanyManaRecipe> extends
         mc.renderEngine.bindTexture(HUDHandler.manaBar);
     }
 
+    public int getProgress() {
+        return progress;
+    }
+
     protected abstract int getInvSize();
     protected abstract int getInvOutSize();
-
     protected abstract int getSpeed();
+
+    protected static class InvEntry {
+        public final int slot;
+        public final ItemStack stack;
+
+        public InvEntry(int slot, ItemStack stack) {
+            this.slot = slot;
+            this.stack = stack;
+        }
+    }
 }
