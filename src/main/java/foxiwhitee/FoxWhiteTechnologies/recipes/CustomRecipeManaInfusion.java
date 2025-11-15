@@ -19,11 +19,6 @@ public class CustomRecipeManaInfusion extends RecipeManaInfusion implements IBot
     }
 
     @Override
-    public boolean matches(IInventory inv) {
-        return matches(inv.getStackInSlot(0));
-    }
-
-    @Override
     public List<Object> getInputs() {
         List<Object> inputs = new ArrayList<>();
         inputs.add(getInput());
@@ -33,5 +28,10 @@ public class CustomRecipeManaInfusion extends RecipeManaInfusion implements IBot
     @Override
     public int getManaUsage() {
         return getManaToConsume();
+    }
+
+    @Override
+    public boolean upgradedMatches(IInventory inv, boolean b) {
+        return matches(inv.getStackInSlot(0));
     }
 }

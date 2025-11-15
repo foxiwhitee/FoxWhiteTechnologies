@@ -17,16 +17,16 @@ public class CustomRecipeElvenTrade extends RecipeElvenTrade implements IBotanyM
     }
 
     @Override
-    public boolean matches(IInventory inv) {
+    public int getManaUsage() {
+        return 10000;
+    }
+
+    @Override
+    public boolean upgradedMatches(IInventory inv, boolean b) {
         List<ItemStack> stack = new ArrayList<>();
         for (int i = 0; i < inv.getSizeInventory(); i++) {
             stack.add(inv.getStackInSlot(i));
         }
         return matches(stack, false);
-    }
-
-    @Override
-    public int getManaUsage() {
-        return 10000;
     }
 }
