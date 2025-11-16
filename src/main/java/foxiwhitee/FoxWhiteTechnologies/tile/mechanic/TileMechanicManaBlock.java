@@ -30,6 +30,7 @@ import vazkii.botania.api.mana.spark.ISparkEntity;
 import vazkii.botania.client.core.handler.HUDHandler;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 public abstract class TileMechanicManaBlock<T extends IBotanyManaRecipe> extends FoxBaseInvTile implements ISparkAttachable {
@@ -53,17 +54,23 @@ public abstract class TileMechanicManaBlock<T extends IBotanyManaRecipe> extends
             progress += 1;
 
             if (progress >= getSpeed()) {
+                int minusMana = currentRecipe.getManaUsage();
                 if (!worldObj.isRemote) {
                     craftRecipe();
-                    mana -= currentRecipe.getManaUsage();
-                    currentRecipe = null;
                 }
+                currentRecipe = null;
+                mana -= minusMana;
                 progress = 0;
             }
 
         } else {
             progress = 0;
         }
+    }
+
+    @Override
+    public void onChangeInventory(IInventory iInventory, int i, InvOperation invOperation, ItemStack itemStack, ItemStack itemStack1) {
+        markForUpdate();
     }
 
     protected void craftRecipe() {
@@ -87,6 +94,29 @@ public abstract class TileMechanicManaBlock<T extends IBotanyManaRecipe> extends
             consumeItem(stack);
             if (stack != null) {
                 insertOutput(stack.copy());
+            }
+        }
+        updateCountInStacks();
+    }
+
+    protected void updateCountInStacks() {
+        List<InvEntry> entries = new LinkedList<>();
+        for (int i = 0; i < inv.getSizeInventory(); i++) {
+            ItemStack stack = inv.getStackInSlot(i);
+            if (stack != null) {
+                for (InvEntry entry : entries) {
+                    if (entry.stackEquals(stack) && !entry.stack.hasTagCompound() && entry.stack.stackSize < 64) {
+
+                        int need = 64 - entry.stack.stackSize;
+                        entry.stack.stackSize += Math.min(need, stack.stackSize);
+                        stack.stackSize -= Math.min(need, stack.stackSize);
+                    }
+                }
+                if (stack.stackSize <= 0) {
+                    inv.setInventorySlotContents(i, null);
+                } else {
+                    entries.add(new InvEntry(i, stack));
+                }
             }
         }
     }
@@ -220,6 +250,7 @@ public abstract class TileMechanicManaBlock<T extends IBotanyManaRecipe> extends
     @TileEvent(TileEventType.SERVER_NBT_READ)
     public void readFromNBT_(NBTTagCompound data) {
         super.readFromNBT_(data);
+        output.readFromNBT(data, "output");
         mana = data.getInteger("mana");
         maxMana = data.getInteger("maxMana");
         progress = data.getInteger("progress");
@@ -228,6 +259,7 @@ public abstract class TileMechanicManaBlock<T extends IBotanyManaRecipe> extends
     @TileEvent(TileEventType.SERVER_NBT_WRITE)
     public void writeToNBT_(NBTTagCompound data) {
         super.writeToNBT_(data);
+        output.writeToNBT(data, "output");
         data.setInteger("mana", mana);
         data.setInteger("maxMana", maxMana);
         data.setInteger("progress", progress);
@@ -241,10 +273,12 @@ public abstract class TileMechanicManaBlock<T extends IBotanyManaRecipe> extends
     }
 
     @TileEvent(TileEventType.CLIENT_NBT_READ)
-    public void readFromStream(ByteBuf data) {
+    public boolean readFromStream(ByteBuf data) {
+        int oldMana = mana, oldMaxMana = maxMana, oldProgress = progress;
         mana = data.readInt();
         maxMana = data.readInt();
         progress = data.readInt();
+        return oldMana != mana && oldMaxMana != maxMana && oldProgress != progress;
     }
 
     @Override
@@ -304,11 +338,6 @@ public abstract class TileMechanicManaBlock<T extends IBotanyManaRecipe> extends
             sides[i] = i;
         }
         return sides;
-    }
-
-    @Override
-    public void onChangeInventory(IInventory iInventory, int i, InvOperation invOperation, ItemStack itemStack, ItemStack itemStack1) {
-
     }
 
     @Override
@@ -396,6 +425,18 @@ public abstract class TileMechanicManaBlock<T extends IBotanyManaRecipe> extends
         public InvEntry(int slot, ItemStack stack) {
             this.slot = slot;
             this.stack = stack;
+        }
+
+        @Override
+        public boolean equals(Object obj) {
+            if (obj instanceof InvEntry entry) {
+                return slot == entry.slot && stack.getItem() == entry.stack.getItem() && stack.getItemDamage() == entry.stack.getItemDamage();
+            }
+            return false;
+        }
+
+        public boolean stackEquals(ItemStack stack) {
+            return this.stack.getItem() == stack.getItem() && this.stack.getItemDamage() == stack.getItemDamage();
         }
     }
 }

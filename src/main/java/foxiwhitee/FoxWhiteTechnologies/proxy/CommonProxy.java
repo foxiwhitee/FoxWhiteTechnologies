@@ -8,6 +8,7 @@ import foxiwhitee.FoxLib.container.slots.SlotFiltered;
 import foxiwhitee.FoxLib.items.ItemProductivityCard;
 import foxiwhitee.FoxWhiteTechnologies.ModBlocks;
 import foxiwhitee.FoxWhiteTechnologies.ModItems;
+import foxiwhitee.FoxWhiteTechnologies.ModRecipes;
 import net.minecraft.block.Block;
 import vazkii.botania.common.block.BlockLivingrock;
 
@@ -24,6 +25,6 @@ public class CommonProxy {
     }
 
     public void postInit(FMLPostInitializationEvent event) {
-
+        ModRecipes.registerRecipes();
     }
 }

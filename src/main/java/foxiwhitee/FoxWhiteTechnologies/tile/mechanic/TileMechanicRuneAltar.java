@@ -64,6 +64,7 @@ public class TileMechanicRuneAltar extends TileMechanicManaBlock<CustomRecipeRun
                     getInternalInventory().setInventorySlotContents(slot, null);
             }
         }
+        updateCountInStacks();
 
         if (getInternalInventory().getStackInSlot(0) != null) {
             getInternalInventory().getStackInSlot(0).stackSize--;

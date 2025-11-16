@@ -1,14 +1,15 @@
 package foxiwhitee.FoxWhiteTechnologies;
 
 import foxiwhitee.FoxLib.registries.RegisterUtils;
-import foxiwhitee.FoxWhiteTechnologies.blocks.BlockCustomManaPool;
-import foxiwhitee.FoxWhiteTechnologies.blocks.BlockCustomSpreader;
-import foxiwhitee.FoxWhiteTechnologies.blocks.BlockManaCharger;
+import foxiwhitee.FoxWhiteTechnologies.blocks.*;
 import foxiwhitee.FoxWhiteTechnologies.blocks.mechanic.BlockMechanicRuneAltar;
 import foxiwhitee.FoxWhiteTechnologies.config.ContentConfig;
+import foxiwhitee.FoxWhiteTechnologies.items.DefaultItem;
+import foxiwhitee.FoxWhiteTechnologies.tile.TileMalachitePlate;
 import foxiwhitee.FoxWhiteTechnologies.tile.TileManaCharger;
 import foxiwhitee.FoxWhiteTechnologies.tile.mechanic.TileMechanicRuneAltar;
 import net.minecraft.block.Block;
+import net.minecraft.item.Item;
 import net.minecraft.tileentity.TileEntity;
 
 public class ModBlocks {
@@ -26,6 +27,13 @@ public class ModBlocks {
 
     public static final Block MECHANIC_RUNE_ALTAR = new BlockMechanicRuneAltar("mechanicRuneAltar");
 
+    public static final Block ASGARDIAN_BLOCK = new StaticBlock("asgardianBlock");
+    public static final Block HELHEIM_BLOCK = new StaticBlock("helheimBlock");
+    public static final Block VALHALLA_BLOCK = new StaticBlock("valhallaBlock");
+    public static final Block MIDGARD_BLOCK = new StaticBlock("midgardBlock");
+
+    public static final Block MALACHITE_PLATE = new BlockMalachitePlate("malachitePlate");
+
     public static void registerBlocks() {
         if (ContentConfig.enableCharger) {
             RegisterUtils.registerBlock(MANA_CHARGER);
@@ -42,6 +50,13 @@ public class ModBlocks {
         if (ContentConfig.enableMechanicRuneAltar) {
             RegisterUtils.registerBlock(MECHANIC_RUNE_ALTAR);
             RegisterUtils.registerTile(TileMechanicRuneAltar.class);
+        }
+        if (ContentConfig.enableIngotsBlocks) {
+            RegisterUtils.registerBlocks(ASGARDIAN_BLOCK, HELHEIM_BLOCK,  VALHALLA_BLOCK, MIDGARD_BLOCK);
+        }
+        if (ContentConfig.enableMalachitePlate) {
+            RegisterUtils.registerBlock(MALACHITE_PLATE);
+            RegisterUtils.registerTile(TileMalachitePlate.class);
         }
     }
 }

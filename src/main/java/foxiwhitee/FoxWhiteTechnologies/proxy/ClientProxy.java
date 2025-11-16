@@ -9,6 +9,7 @@ import foxiwhitee.FoxWhiteTechnologies.ModBlocks;
 import foxiwhitee.FoxWhiteTechnologies.client.ManaInfoRenderer;
 import foxiwhitee.FoxWhiteTechnologies.client.render.RenderCustomManaPool;
 import foxiwhitee.FoxWhiteTechnologies.client.render.RenderCustomSpreader;
+import foxiwhitee.FoxWhiteTechnologies.client.render.RenderMalachitePlate;
 import foxiwhitee.FoxWhiteTechnologies.client.render.charger.RenderItemManaCharger;
 import foxiwhitee.FoxWhiteTechnologies.client.render.charger.RenderManaCharger;
 import foxiwhitee.FoxWhiteTechnologies.client.render.entity.RenderCustomSpark;
@@ -17,6 +18,7 @@ import foxiwhitee.FoxWhiteTechnologies.entity.AsgardSpark;
 import foxiwhitee.FoxWhiteTechnologies.entity.HelhelmSpark;
 import foxiwhitee.FoxWhiteTechnologies.entity.MidgardSpark;
 import foxiwhitee.FoxWhiteTechnologies.entity.ValhallaSpark;
+import foxiwhitee.FoxWhiteTechnologies.tile.TileMalachitePlate;
 import foxiwhitee.FoxWhiteTechnologies.tile.TileManaCharger;
 import foxiwhitee.FoxWhiteTechnologies.tile.pools.TileAsgardManaPool;
 import foxiwhitee.FoxWhiteTechnologies.tile.pools.TileHelHelmManaPool;
@@ -89,6 +91,9 @@ public class ClientProxy extends CommonProxy {
             RenderingRegistry.registerEntityRenderingHandler(HelhelmSpark.class, new RenderCustomSpark<>());
             RenderingRegistry.registerEntityRenderingHandler(ValhallaSpark.class, new RenderCustomSpark<>());
             RenderingRegistry.registerEntityRenderingHandler(MidgardSpark.class, new RenderCustomSpark<>());
+        }
+        if (ContentConfig.enableMalachitePlate) {
+            ClientRegistry.bindTileEntitySpecialRenderer(TileMalachitePlate.class, new RenderMalachitePlate());
         }
     }
 
