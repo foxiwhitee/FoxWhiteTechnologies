@@ -10,6 +10,7 @@ import foxiwhitee.FoxWhiteTechnologies.tile.spreaders.TileAsgardSpreader;
 import foxiwhitee.FoxWhiteTechnologies.tile.spreaders.TileHelhelmSpreader;
 import foxiwhitee.FoxWhiteTechnologies.tile.spreaders.TileMidgardSpreader;
 import foxiwhitee.FoxWhiteTechnologies.tile.spreaders.TileValhallaSpreader;
+import foxiwhitee.FoxWhiteTechnologies.util.RenderIDs;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockPistonBase;
 import net.minecraft.block.ITileEntityProvider;
@@ -36,7 +37,6 @@ import vazkii.botania.common.item.ModItems;
 public class BlockCustomSpreader extends FoxBaseBlock implements ITileEntityProvider, IWandable, IWandHUD, IWireframeAABBProvider {
     public enum Type {MIDGARD, VALHALLA, HELHELM, ASGARD}
 
-    public IIcon iIcon;
     private final Type type;
 
     public BlockCustomSpreader(String name, Type type) {
@@ -69,27 +69,6 @@ public class BlockCustomSpreader extends FoxBaseBlock implements ITileEntityProv
         return meta;
     }
 
-
-    public void registerBlockIcons(IIconRegister reg) {
-        switch (type) {
-            case ASGARD: {
-                RenderingRegistry.registerBlockHandler(getRenderId(), new RenderCustomSpreader(new TileAsgardSpreader()));
-                break;
-            }
-            case HELHELM: {
-                RenderingRegistry.registerBlockHandler(getRenderId(), new RenderCustomSpreader(new TileHelhelmSpreader()));
-                break;
-            }
-            case VALHALLA: {
-                RenderingRegistry.registerBlockHandler(getRenderId(), new RenderCustomSpreader(new TileValhallaSpreader()));
-                break;
-            }
-            case MIDGARD: {
-                RenderingRegistry.registerBlockHandler(getRenderId(), new RenderCustomSpreader(new TileMidgardSpreader()));
-            }
-        }
-    }
-
     public int getManaPerSec() {
         return switch (type) {
             case ASGARD -> WTConfig.manaPerSecAsgardSpreader;
@@ -105,10 +84,6 @@ public class BlockCustomSpreader extends FoxBaseBlock implements ITileEntityProv
 
     public IIcon getIcon(int side, int meta) {
         return ModBlocks.livingwood.getIcon(side, 0);
-    }
-
-    public int getRenderType() {
-        return getRenderId();
     }
 
     public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer player, int par6, float par7, float par8, float par9) {
@@ -184,8 +159,13 @@ public class BlockCustomSpreader extends FoxBaseBlock implements ITileEntityProv
         return AxisAlignedBB.getBoundingBox((x + f), (y + f), (z + f), ((x + 1) - f), ((y + 1) - f), ((z + 1) - f));
     }
 
-    private int getRenderId() {
-        return -1;
+    public int getRenderType() {
+        return switch (type){
+            case MIDGARD -> RenderIDs.MIDGARD_SPREADER.getId();
+            case VALHALLA -> RenderIDs.VALHALLA_SPREADER.getId();
+            case HELHELM -> RenderIDs.HELHELM_SPREADER.getId();
+            case ASGARD -> RenderIDs.ASGARD_SPREADER.getId();
+        };
     }
 
     @Override

@@ -42,7 +42,6 @@ public class RenderCustomManaPool<T extends TileCustomManaPool> extends TileEnti
         GL11.glPopMatrix();
     }
 
-
     private void renderOverlay(T pool, double partialTicks) {
         World world = pool.getWorldObj();
         if (world == null) return;
@@ -133,7 +132,6 @@ public class RenderCustomManaPool<T extends TileCustomManaPool> extends TileEnti
 
         t.draw();
     }
-
 
     public boolean handleRenderType(ItemStack item, IItemRenderer.ItemRenderType type) {
         return true;

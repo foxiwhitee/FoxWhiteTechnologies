@@ -1,7 +1,9 @@
 package foxiwhitee.FoxWhiteTechnologies.client.render;
 
 import cpw.mods.fml.client.registry.ISimpleBlockRenderingHandler;
+import foxiwhitee.FoxLib.client.render.TileEntitySpecialRendererObjWrapper;
 import foxiwhitee.FoxWhiteTechnologies.FoxWTCore;
+import foxiwhitee.FoxWhiteTechnologies.tile.pools.TileCustomManaPool;
 import foxiwhitee.FoxWhiteTechnologies.tile.spreaders.TileCustomSpreader;
 import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
@@ -14,6 +16,9 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.IBlockAccess;
+import net.minecraftforge.client.IItemRenderer;
+import net.minecraftforge.client.model.AdvancedModelLoader;
+import net.minecraftforge.client.model.IModelCustom;
 import org.lwjgl.opengl.GL11;
 import vazkii.botania.api.mana.ILens;
 import vazkii.botania.client.core.handler.ClientTickHandler;
@@ -23,100 +28,99 @@ import vazkii.botania.client.render.item.RenderLens;
 import java.awt.*;
 import java.util.Random;
 
-public class RenderCustomSpreader extends TileEntitySpecialRenderer implements ISimpleBlockRenderingHandler {
-    private ResourceLocation texture;
-    private static final ModelSpreader model = new ModelSpreader();
-    final TileEntity clazz;
+public class RenderCustomSpreader<T extends TileCustomSpreader>  extends TileEntitySpecialRendererObjWrapper<T> implements IItemRenderer {
+    private final IModelCustom model;
 
-    public RenderCustomSpreader(TileEntity clazz) {
-        this.clazz = clazz;
+    public RenderCustomSpreader(Class<T> tile, String texture) {
+        super(tile,
+            new ResourceLocation(FoxWTCore.MODID, "models/spreader.obj"),
+            new ResourceLocation(FoxWTCore.MODID, texture));
+        this.model = AdvancedModelLoader.loadModel(new ResourceLocation(FoxWTCore.MODID, "models/spreader.obj"));
+        createList("body");
+        createList("cube");
     }
 
-    public void renderTileEntityAt(TileEntity tileentity, double x, double y, double z, float ticks) {
-        TileCustomSpreader spreader = (TileCustomSpreader)tileentity;
-        texture = new ResourceLocation(FoxWTCore.MODID.toLowerCase(), "textures/blocks/" + spreader.getName() + ".png");
+    @Override
+    public void renderAt(T spreader, double x, double y, double z, double partialTicks) {
         GL11.glPushMatrix();
-        GL11.glEnable(32826);
-        GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
-        GL11.glTranslated(x, y, z);
-        GL11.glTranslatef(0.5F, 1.5F, 0.5F);
-        GL11.glRotatef(spreader.rotationX + 90.0F, 0.0F, 1.0F, 0.0F);
-        GL11.glTranslatef(0.0F, -1.0F, 0.0F);
-        GL11.glRotatef(spreader.rotationY, 1.0F, 0.0F, 0.0F);
-        GL11.glTranslatef(0.0F, 1.0F, 0.0F);
-        (Minecraft.getMinecraft()).renderEngine.bindTexture(texture);
-        GL11.glScalef(1.0F, -1.0F, -1.0F);
-        double time = (ClientTickHandler.ticksInGame + ticks);
-        if (spreader.isULTRA_SPREADER()) {
-            Color color = Color.getHSBColor((float)((time * 5.0D + (new Random((spreader.xCoord ^ spreader.yCoord ^ spreader.zCoord))).nextInt(10000)) % 360.0D) / 360.0F, 0.4F, 0.9F);
-            GL11.glColor3f(color.getRed() / 255.0F, color.getGreen() / 255.0F, color.getBlue() / 255.0F);
-        }
-        model.render();
-        GL11.glColor3f(1.0F, 1.0F, 1.0F);
+
+        GL11.glTranslated(x + 0.5, y + 1.0, z + 0.5);
+        GL11.glScalef(1f, -1f, -1f);
+
+        float modelOffsetY = -0.5f;
+
+        GL11.glTranslatef(0, -modelOffsetY, 0);
+        GL11.glRotatef(90 - spreader.rotationX, 0, 1, 0);
+        float f = spreader.rotationY;
+        GL11.glRotatef(-f, 1, 0, 0);
+        GL11.glTranslatef(0, +modelOffsetY, 0);
+
+        double time = ClientTickHandler.ticksInGame + partialTicks;
+
+        bindTexture();
+        renderPart("body");
+
         GL11.glPushMatrix();
-        double worldTicks = (tileentity.getWorldObj() == null) ? 0.0D : time;
-        GL11.glRotatef((float)worldTicks % 360.0F, 0.0F, 1.0F, 0.0F);
-        GL11.glTranslatef(0.0F, (float)Math.sin(worldTicks / 20.0D) * 0.05F, 0.0F);
-        model.renderCube();
+        double worldTicks = time;
+
+        GL11.glRotatef((float) (worldTicks % 360), 0, 1, 0);
+        GL11.glTranslatef(0, (float) Math.sin(worldTicks / 20.0) * 0.05f, 0);
+
+        renderPart("cube");
         GL11.glPopMatrix();
-        GL11.glScalef(1.0F, -1.0F, -1.0F);
-        ItemStack stack = spreader.getStackInSlot(0);
-        if (stack != null) {
-            (Minecraft.getMinecraft()).renderEngine.bindTexture(TextureMap.locationItemsTexture);
-            ILens lens = (ILens)stack.getItem();
+
+        GL11.glColor3f(1f, 1f, 1f);
+
+        ItemStack lensStack = spreader.getStackInSlot(0);
+        if (lensStack != null && lensStack.getItem() instanceof ILens lens) {
+
             GL11.glPushMatrix();
-            GL11.glTranslatef(-0.4F, -1.4F, -0.4375F);
-            GL11.glScalef(0.8F, 0.8F, 0.8F);
-            RenderLens.render(stack, lens.getLensColor(stack));
+            Minecraft.getMinecraft().renderEngine.bindTexture(TextureMap.locationItemsTexture);
+
+            GL11.glTranslatef(-0.4f, 0.1f, -0.4375f);
+            GL11.glScalef(0.8f, 0.8f, 0.8f);
+
+            RenderLens.render(lensStack, lens.getLensColor(lensStack));
+
             GL11.glPopMatrix();
         }
-        if (spreader.paddingColor != -1) {
-            (Minecraft.getMinecraft()).renderEngine.bindTexture(TextureMap.locationBlocksTexture);
-            Block block = Blocks.carpet;
-            int color2 = spreader.paddingColor;
-            RenderBlocks render = RenderBlocks.getInstance();
-            float f = 0.0625F;
-            GL11.glTranslatef(0.0F, -f, 0.0F);
-            render.renderBlockAsItem(block, color2, 1.0F);
-            GL11.glTranslatef(0.0F, -f * 15.0F, 0.0F);
-            render.renderBlockAsItem(block, color2, 1.0F);
-            GL11.glRotatef(90.0F, 1.0F, 0.0F, 0.0F);
-            GL11.glRotatef(90.0F, 0.0F, 1.0F, 0.0F);
-            GL11.glPushMatrix();
-            GL11.glScalef(f * 14.0F, 1.0F, 1.0F);
-            render.renderBlockAsItem(block, color2, 1.0F);
-            GL11.glPopMatrix();
-            GL11.glRotatef(90.0F, 1.0F, 0.0F, 0.0F);
-            GL11.glTranslatef(0.0F, 0.0F, -f / 2.0F);
-            GL11.glScalef(f * 14.0F, 1.0F, f * 15.0F);
-            render.renderBlockAsItem(block, color2, 1.0F);
-            GL11.glTranslatef(0.0F, f * 15.0F, 0.0F);
-            render.renderBlockAsItem(block, color2, 1.0F);
-        }
-        GL11.glEnable(32826);
+
         GL11.glPopMatrix();
     }
 
-    @Override
-    public void renderInventoryBlock(Block block, int metadata, int modelId, RenderBlocks renderer) {
-        GL11.glPushMatrix();
-        GL11.glTranslatef(-0.5F, -0.5F, -0.5F);
-        TileEntityRendererDispatcher.instance.renderTileEntityAt(clazz, 0.0D, 0.0D, 0.0D, 0.0F);
-        GL11.glPopMatrix();
-    }
-
-    @Override
-    public boolean renderWorldBlock(IBlockAccess world, int x, int y, int z, Block block, int modelId, RenderBlocks renderer) {
-        return false;
-    }
-
-    @Override
-    public boolean shouldRender3DInInventory(int modelId) {
+    public boolean handleRenderType(ItemStack item, IItemRenderer.ItemRenderType type) {
         return true;
     }
 
-    @Override
-    public int getRenderId() {
-        return -1;
+    public boolean shouldUseRenderHelper(IItemRenderer.ItemRenderType type, ItemStack item, IItemRenderer.ItemRendererHelper helper) {
+        return true;
+    }
+
+    public void renderItem(IItemRenderer.ItemRenderType type, ItemStack item, Object... data) {
+        GL11.glPushMatrix();
+        GL11.glEnable(3042);
+        GL11.glBlendFunc(770, 771);
+        GL11.glTranslated(0.0F, -0.5F, 0.0F);
+        GL11.glRotatef(-90, 0, 1, 0);
+        GL11.glScaled(1.0F, 1.0F, 1.0F);
+        switch (type) {
+            case ENTITY:
+                GL11.glScaled(1, 1, 1);
+                GL11.glTranslated(0, 0, 0);
+                break;
+            case EQUIPPED:
+                GL11.glScaled(1, 1, 1);
+                GL11.glTranslated(0.5, 0.5, -0.5);
+                break;
+            case EQUIPPED_FIRST_PERSON:
+                GL11.glScaled(1, 1, 1);
+                GL11.glTranslated(0.5, 0.5, 0.5);
+                break;
+        }
+
+        Minecraft.getMinecraft().renderEngine.bindTexture(this.getTexture());
+        this.model.renderAll();
+        GL11.glDisable(3042);
+        GL11.glPopMatrix();
     }
 }

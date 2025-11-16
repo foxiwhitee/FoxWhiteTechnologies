@@ -26,6 +26,9 @@ public class FoxWTCore {
         }
     };
 
+    @Mod.Instance(MODID)
+    public static FoxWTCore instance;
+
     @SidedProxy(clientSide = "foxiwhitee.FoxWhiteTechnologies.proxy.ClientProxy", serverSide = "foxiwhitee.FoxWhiteTechnologies.proxy.CommonProxy")
     public static CommonProxy proxy;
 
