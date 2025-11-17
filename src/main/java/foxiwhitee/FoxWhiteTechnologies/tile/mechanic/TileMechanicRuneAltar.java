@@ -1,17 +1,10 @@
 package foxiwhitee.FoxWhiteTechnologies.tile.mechanic;
 
-import foxiwhitee.FoxLib.utils.helpers.OreDictUtil;
 import foxiwhitee.FoxWhiteTechnologies.config.WTConfig;
-import foxiwhitee.FoxWhiteTechnologies.recipes.CustomRecipeRuneAltar;
+import foxiwhitee.FoxWhiteTechnologies.recipes.util.CustomRecipeRuneAltar;
 import foxiwhitee.FoxWhiteTechnologies.util.RecipeInitializer;
-import foxiwhitee.FoxWhiteTechnologies.util.StackOreDict;
-import net.minecraft.inventory.InventoryBasic;
-import net.minecraft.inventory.InventoryCrafting;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraftforge.oredict.OreDictionary;
-import vazkii.botania.api.BotaniaAPI;
-import vazkii.botania.api.recipe.RecipeRuneAltar;
 
 import java.util.ArrayList;
 import java.util.List;

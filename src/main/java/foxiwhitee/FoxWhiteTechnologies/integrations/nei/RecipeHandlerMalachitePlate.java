@@ -6,10 +6,12 @@ import codechicken.nei.PositionedStack;
 import codechicken.nei.recipe.TemplateRecipeHandler;
 import foxiwhitee.FoxWhiteTechnologies.ModRecipes;
 import foxiwhitee.FoxWhiteTechnologies.recipes.RecipeMalachitePlate;
+import foxiwhitee.FoxWhiteTechnologies.util.StackOreDict;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.entity.RenderItem;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.StatCollector;
+import net.minecraftforge.oredict.OreDictionary;
 import org.lwjgl.opengl.GL11;
 import vazkii.botania.client.core.handler.HUDHandler;
 import vazkii.botania.common.block.ModBlocks;
@@ -48,11 +50,12 @@ public class RecipeHandlerMalachitePlate extends TemplateRecipeHandler {
         GL11.glColor4f(1.0F, 1.0F, 1.0F, 0.5F);
         GuiDraw.changeTexture("botania:textures/gui/petalOverlay.png");
         GuiDraw.drawTexturedModalRect(45, 10, 38, 7, 92, 92);
-        int mana = ((CachedMalachitePlateRecipe)this.arecipes.get(recipe)).manaUsage;
-        renderPoolManaBar(32, 112, 2334172, 1.0F, mana);
+        CachedMalachitePlateRecipe r = ((CachedMalachitePlateRecipe)this.arecipes.get(recipe));
+        int mana = r.manaUsage;
+        renderPoolManaBar(32, 112, 2334172, 1.0F, mana, r.tier);
     }
 
-    private void renderPoolManaBar(int x, int y, int color, float alpha, int mana) {
+    private void renderPoolManaBar(int x, int y, int color, float alpha, int mana, int tier) {
         Minecraft mc = Minecraft.getMinecraft();
         int maxMana = 1000000;
         double poolCount = (double)mana / maxMana;
@@ -82,6 +85,9 @@ public class RecipeHandlerMalachitePlate extends TemplateRecipeHandler {
         GL11.glTranslatef(18.0F, 5.0F, 300.0F);
         mc.fontRenderer.drawString(strPoolShort, 0, 0, color);
         mc.fontRenderer.drawString(strPoolFull, 0, mc.fontRenderer.FONT_HEIGHT, color);
+
+        String t = StatCollector.translateToLocal("tooltip.malachitePlate.tier." + tier);
+        mc.fontRenderer.drawString(t, -20, mc.fontRenderer.FONT_HEIGHT * 2, color);
 
         GL11.glPopMatrix();
 
@@ -135,12 +141,14 @@ public class RecipeHandlerMalachitePlate extends TemplateRecipeHandler {
         public java.util.List<PositionedStack> inputs = new ArrayList<>();
         public PositionedStack output;
         public int manaUsage;
+        public int tier;
 
         public CachedMalachitePlateRecipe(RecipeMalachitePlate recipe) {
             this.setIngredients(recipe.getInputs());
             this.output = new PositionedStack(recipe.getOut(), 111, 21);
             this.inputs.add(new PositionedStack(new ItemStack(foxiwhitee.FoxWhiteTechnologies.ModBlocks.MALACHITE_PLATE), 73, 55));
             this.manaUsage = recipe.getManaCost();
+            this.tier = recipe.getTier();
         }
 
         public void setIngredients(java.util.List<Object> inputs) {
@@ -152,6 +160,18 @@ public class RecipeHandlerMalachitePlate extends TemplateRecipeHandler {
                     int posX = (int)Math.round((double)73.0F + Math.cos((double)currentDegree * Math.PI / (double)180.0F) * (double)32.0F);
                     int posY = (int)Math.round((double)55.0F + Math.sin((double)currentDegree * Math.PI / (double)180.0F) * (double)32.0F);
                     this.inputs.add(new PositionedStack(stack, posX, posY));
+                    currentDegree += degreePerInput;
+                } else if (o instanceof StackOreDict ore) {
+                    List<ItemStack> ores = OreDictionary.getOres(ore.getOre());
+                    List<ItemStack> stacks = new ArrayList<>();
+                    for (ItemStack temp : ores) {
+                        ItemStack copy = temp.copy();
+                        copy.stackSize = ore.getCount();
+                        stacks.add(copy);
+                    }
+                    int posX = (int)Math.round((double)73.0F + Math.cos((double)currentDegree * Math.PI / (double)180.0F) * (double)32.0F);
+                    int posY = (int)Math.round((double)55.0F + Math.sin((double)currentDegree * Math.PI / (double)180.0F) * (double)32.0F);
+                    this.inputs.add(new PositionedStack(stacks, posX, posY));
                     currentDegree += degreePerInput;
                 }
             }

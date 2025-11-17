@@ -4,11 +4,14 @@ import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import cpw.mods.fml.common.network.NetworkRegistry;
+import foxiwhitee.FoxLib.api.FoxLibApi;
 import foxiwhitee.FoxLib.container.slots.SlotFiltered;
 import foxiwhitee.FoxLib.items.ItemProductivityCard;
 import foxiwhitee.FoxWhiteTechnologies.ModBlocks;
 import foxiwhitee.FoxWhiteTechnologies.ModItems;
 import foxiwhitee.FoxWhiteTechnologies.ModRecipes;
+import foxiwhitee.FoxWhiteTechnologies.config.ContentConfig;
+import foxiwhitee.FoxWhiteTechnologies.recipes.JSONRecipeMalachitePlate;
 import net.minecraft.block.Block;
 import vazkii.botania.common.block.BlockLivingrock;
 
@@ -22,6 +25,10 @@ public class CommonProxy {
     public void init(FMLInitializationEvent event) {
         SlotFiltered.filters.put("noLivingRock", stack -> !(Block.getBlockFromItem(stack.getItem()) instanceof BlockLivingrock));
         SlotFiltered.filters.put("livingRock", stack -> Block.getBlockFromItem(stack.getItem()) instanceof BlockLivingrock);
+
+        if (ContentConfig.enableMalachitePlate) {
+            FoxLibApi.instance.registries().registerJsonRecipe().register(JSONRecipeMalachitePlate.class, "malachitePlate");
+        }
     }
 
     public void postInit(FMLPostInitializationEvent event) {

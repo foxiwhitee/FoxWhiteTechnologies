@@ -1,14 +1,16 @@
 package foxiwhitee.FoxWhiteTechnologies.recipes;
 
 import foxiwhitee.FoxLib.recipes.IFoxRecipe;
+import foxiwhitee.FoxWhiteTechnologies.recipes.util.IBotanyManaRecipe;
 import foxiwhitee.FoxWhiteTechnologies.util.StackOreDict;
+import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.oredict.OreDictionary;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class RecipeMalachitePlate implements IFoxRecipe {
+public class RecipeMalachitePlate implements IFoxRecipe, IBotanyManaRecipe {
     private final ItemStack output;
     private final List<Object> inputs;
     private final int tier, manaCost;
@@ -32,6 +34,25 @@ public class RecipeMalachitePlate implements IFoxRecipe {
     @Override
     public List<Object> getInputs() {
         return inputs;
+    }
+
+    @Override
+    public ItemStack getOutput() {
+        return getOut();
+    }
+
+    @Override
+    public int getManaUsage() {
+        return getManaCost();
+    }
+
+    @Override
+    public boolean upgradedMatches(IInventory inv, boolean b) {
+        List<ItemStack> stack = new ArrayList<>();
+        for (int i = 0; i < inv.getSizeInventory(); i++) {
+            stack.add(inv.getStackInSlot(i));
+        }
+        return matches(stack);
     }
 
     @Override

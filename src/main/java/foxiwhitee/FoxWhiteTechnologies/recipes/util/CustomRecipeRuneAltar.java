@@ -1,4 +1,4 @@
-package foxiwhitee.FoxWhiteTechnologies.recipes;
+package foxiwhitee.FoxWhiteTechnologies.recipes.util;
 
 import foxiwhitee.FoxWhiteTechnologies.util.StackOreDict;
 import net.minecraft.inventory.IInventory;

@@ -1,6 +1,6 @@
 package foxiwhitee.FoxWhiteTechnologies.util;
 
-import foxiwhitee.FoxWhiteTechnologies.recipes.CustomRecipeRuneAltar;
+import foxiwhitee.FoxWhiteTechnologies.recipes.util.CustomRecipeRuneAltar;
 import net.minecraft.item.ItemStack;
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.recipe.RecipeRuneAltar;
