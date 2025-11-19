@@ -1,5 +1,103 @@
 {
   "crafts": [
-
+    {
+      "type": "malachitePlate",
+      "tier": 0,
+      "mana": 1250000,
+      "output": "<Botania:manaResource.4:3>",
+      "inputs": ["<ore:ingotElvenElementium:2>", "<ore:elvenPixieDust:2>", "<ore:elvenDragonstone:2>"]
+    },
+    {
+      "type": "malachitePlate",
+      "tier": 3,
+      "mana": 15000,
+      "output": "<foxwhitetechnologies:asgardianBlock>",
+      "inputs": ["<Botania:storage.1>", "<foxwhitetechnologies:malachite>", "<foxwhitetechnologies:asgardianIngot:8>"]
+    },
+    {
+      "type": "malachitePlate",
+      "tier": 2,
+      "mana": 10000,
+      "output": "<foxwhitetechnologies:helheimBlock>",
+      "inputs": ["<Botania:storage.1>", "<foxwhitetechnologies:malachite>", "<foxwhitetechnologies:helheimIngot:8>"]
+    },
+    {
+      "type": "malachitePlate",
+      "tier": 1,
+      "mana": 10000,
+      "output": "<foxwhitetechnologies:valhallaBlock>",
+      "inputs": ["<Botania:storage.1>", "<foxwhitetechnologies:malachite>", "<foxwhitetechnologies:valhallaIngot:8>"]
+    },
+    {
+      "type": "malachitePlate",
+      "tier": 0,
+      "mana": 10000,
+      "output": "<foxwhitetechnologies:midgardBlock>",
+      "inputs": ["<Botania:storage.1>", "<foxwhitetechnologies:malachite>", "<foxwhitetechnologies:midgardIngot:8>"]
+    },
+    {
+      "type": "malachitePlate",
+      "tier": 3,
+      "mana": 3500000,
+      "output": "<foxwhitetechnologies:asgardianIngot>",
+      "inputs": ["<foxwhitetechnologies:helheimIngot>", "<foxwhitetechnologies:valhallaIngot:4>", "<foxwhitetechnologies:midgardIngot:6>",
+        "<ore:gaiaIngot:4>", "<foxwhitetechnologies:malachite:8>"]
+    },
+    {
+      "type": "malachitePlate",
+      "tier": 2,
+      "mana": 2000000,
+      "output": "<foxwhitetechnologies:helheimIngot>",
+      "inputs": ["<foxwhitetechnologies:valhallaIngot:2>", "<foxwhitetechnologies:midgardIngot>", "<ore:eternalLifeEssence>", "<Botania:manaResource.15:32>"]
+    },
+    {
+      "type": "malachitePlate",
+      "tier": 1,
+      "mana": 1500000,
+      "output": "<foxwhitetechnologies:valhallaIngot>",
+      "inputs": ["<foxwhitetechnologies:midgardIngot:3>", "<ore:runeAirB>", "<ore:runeManaB>"]
+    },
+    {
+      "type": "malachitePlate",
+      "tier": 0,
+      "mana": 1000000,
+      "output": "<foxwhitetechnologies:midgardIngot>",
+      "inputs": ["<Botania:storage.1>", "<ore:powderMana:8>", "<ore:ingotManasteel:4>", "<ore:manaPearl:4>", "<ore:manaDiamond:4>", "<foxwhitetechnologies:malachite:2>"]
+    },
+    {
+      "type": "malachitePlate",
+      "tier": 2,
+      "mana": 1000000,
+      "output": "<foxwhitetechnologies:helheimIngot:6>",
+      "inputs": ["<Botania:storage.1>", "<Botania:gaiaHead>"]
+    },
+    {
+      "type": "malachitePlate",
+      "tier": 3,
+      "mana": 500000,
+      "output": "<foxwhitetechnologies:asgardSpark>",
+      "inputs": ["<foxwhitetechnologies:helhelmSpark>", "<foxwhitetechnologies:asgardianBlock>", "<ore:runeManaB:18>"]
+    },
+    {
+      "type": "malachitePlate",
+      "tier": 2,
+      "mana": 200000,
+      "output": "<foxwhitetechnologies:helhelmSpark>",
+      "inputs": ["<foxwhitetechnologies:valhallaSpark>", "<foxwhitetechnologies:helheimBlock>", "<ore:runeManaB:12>"]
+    },
+    {
+      "type": "malachitePlate",
+      "tier": 1,
+      "mana": 100000,
+      "output": "<foxwhitetechnologies:valhallaSpark>",
+      "inputs": ["<foxwhitetechnologies:midgardSpark>", "<foxwhitetechnologies:valhallaBlock>", "<ore:runeManaB:6>"]
+    },
+    {
+      "type": "malachitePlate",
+      "tier": 0,
+      "mana": 50000,
+      "output": "<foxwhitetechnologies:midgardSpark>",
+      "inputs": ["<Botania:spark:12>", "<foxwhitetechnologies:midgardBlock>", "<ore:runeManaB:3>"]
+    }
   ]
 }

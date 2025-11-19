@@ -29,6 +29,9 @@ public class ContentConfig {
     @ConfigValue(category = "Content", desc = "Enable New Malachite Plate")
     public static boolean enableMalachitePlate = true;
 
+    @ConfigValue(category = "Content", desc = "Enable New Malachite Ore")
+    public static boolean enableMalachiteOre = true;
+
 
     @ConfigValue(category = "Content.Mechanic", desc = "Enable Mechanic Rune Altar")
     public static boolean enableMechanicRuneAltar = true;

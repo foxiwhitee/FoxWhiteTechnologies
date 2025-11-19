@@ -10,12 +10,25 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.IIcon;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
+import vazkii.botania.api.BotaniaAPI;
+import vazkii.botania.api.lexicon.ILexiconable;
+import vazkii.botania.api.lexicon.LexiconCategory;
+import vazkii.botania.api.lexicon.LexiconEntry;
+import vazkii.botania.api.lexicon.LexiconPage;
 import vazkii.botania.client.core.helper.IconHelper;
+import vazkii.botania.common.block.ModMultiblocks;
+import vazkii.botania.common.crafting.ModCraftingRecipes;
 import vazkii.botania.common.item.ModItems;
+import vazkii.botania.common.lexicon.BLexiconEntry;
+import vazkii.botania.common.lexicon.page.PageCraftingRecipe;
+import vazkii.botania.common.lexicon.page.PageMultiblock;
+import vazkii.botania.common.lexicon.page.PageTerrasteel;
+import vazkii.botania.common.lexicon.page.PageText;
 
-public class BlockMalachitePlate extends FoxBaseBlock {
+public class BlockMalachitePlate extends FoxBaseBlock implements ILexiconable {
     public static IIcon overlay;
     IIcon[] icons;
+    private static LexiconEntry entry;
 
     public BlockMalachitePlate(String name) {
         super(FoxWTCore.MODID, name);
@@ -93,5 +106,26 @@ public class BlockMalachitePlate extends FoxBaseBlock {
             redstone = Math.max(1, redstone);
 
         return redstone;
+    }
+
+    @Override
+    public LexiconEntry getEntry(World world, int i, int i1, int i2, EntityPlayer entityPlayer, ItemStack itemStack) {
+        return getEntry();
+    }
+
+    private static LexiconEntry getEntry() {
+        if (entry == null) {
+            LexiconCategory category = new LexiconCategory("malachite");
+            BotaniaAPI.addCategory(category);
+            entry = new BLexiconEntry("malachitePlate", category);
+            entry.setLexiconPages(new LexiconPage[]{
+                new PageText("0"),
+                new PageMultiblock("1", TileMalachitePlate.makeMultiblockSet(0)),
+                new PageMultiblock("2", TileMalachitePlate.makeMultiblockSet(1)),
+                new PageMultiblock("3", TileMalachitePlate.makeMultiblockSet(2)),
+                new PageMultiblock("4", TileMalachitePlate.makeMultiblockSet(3)),
+            });
+        }
+        return entry;
     }
 }

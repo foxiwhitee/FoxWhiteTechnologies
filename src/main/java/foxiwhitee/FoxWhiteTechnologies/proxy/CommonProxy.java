@@ -4,6 +4,7 @@ import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import cpw.mods.fml.common.network.NetworkRegistry;
+import cpw.mods.fml.common.registry.GameRegistry;
 import foxiwhitee.FoxLib.api.FoxLibApi;
 import foxiwhitee.FoxLib.container.slots.SlotFiltered;
 import foxiwhitee.FoxLib.items.ItemProductivityCard;
@@ -12,6 +13,7 @@ import foxiwhitee.FoxWhiteTechnologies.ModItems;
 import foxiwhitee.FoxWhiteTechnologies.ModRecipes;
 import foxiwhitee.FoxWhiteTechnologies.config.ContentConfig;
 import foxiwhitee.FoxWhiteTechnologies.recipes.JSONRecipeMalachitePlate;
+import foxiwhitee.FoxWhiteTechnologies.world.WorldGenMalachiteOre;
 import net.minecraft.block.Block;
 import vazkii.botania.common.block.BlockLivingrock;
 
@@ -28,6 +30,9 @@ public class CommonProxy {
 
         if (ContentConfig.enableMalachitePlate) {
             FoxLibApi.instance.registries().registerJsonRecipe().register(JSONRecipeMalachitePlate.class, "malachitePlate");
+        }
+        if (ContentConfig.enableMalachiteOre) {
+            GameRegistry.registerWorldGenerator(new WorldGenMalachiteOre(), 0);
         }
     }
 

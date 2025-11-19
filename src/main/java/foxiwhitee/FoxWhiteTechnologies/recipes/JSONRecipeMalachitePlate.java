@@ -157,10 +157,8 @@ public class JSONRecipeMalachitePlate implements IJsonRecipe<Object, ItemStack> 
                 } else {
                     String name = inp.get(i).getAsString();
                     if (oreDict && name.startsWith("<ore:")) {
-
-
-
-                        inputs[i] = name.replace("<ore:", "").replace(">", "");
+                        Parsed parsed = parseOredict(name);
+                        inputs[i] = new StackOreDict(parsed.name, parsed.count);
                     } else {
                         inputs[i] = getItemStack(name);
                     }
@@ -171,7 +169,7 @@ public class JSONRecipeMalachitePlate implements IJsonRecipe<Object, ItemStack> 
         }
     }
 
-    private static Parsed parse(String input) {
+    private static Parsed parseOredict(String input) {
         Pattern pattern = Pattern.compile("^<([\\w-]+):([\\w.-]*?)(?::(\\d+))?>$");
         Matcher matcher = pattern.matcher(input);
         if (matcher.matches()) {

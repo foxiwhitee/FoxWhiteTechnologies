@@ -34,6 +34,8 @@ public class ModBlocks {
 
     public static final Block MALACHITE_PLATE = new BlockMalachitePlate("malachitePlate");
 
+    public static final Block MALACHITE_ORE = new BlockMalachiteOre("malachiteOre");
+
     public static void registerBlocks() {
         if (ContentConfig.enableCharger) {
             RegisterUtils.registerBlock(MANA_CHARGER);
@@ -57,6 +59,9 @@ public class ModBlocks {
         if (ContentConfig.enableMalachitePlate) {
             RegisterUtils.registerBlock(MALACHITE_PLATE);
             RegisterUtils.registerTile(TileMalachitePlate.class);
+        }
+        if (ContentConfig.enableMalachiteOre) {
+            RegisterUtils.registerBlock(MALACHITE_ORE);
         }
     }
 }

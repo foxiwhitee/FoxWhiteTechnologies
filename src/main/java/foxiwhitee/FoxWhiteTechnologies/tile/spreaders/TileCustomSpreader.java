@@ -26,6 +26,28 @@ public abstract class TileCustomSpreader extends TileSpreader {
         }
     }
 
+    public EntityManaBurst getBurst(boolean fake) {
+        EntityManaBurst burst = super.getBurst(fake);
+        if (burst != null) {
+            switch ((new Random()).nextInt(3)) {
+                case 0:
+                    burst.setColor(20470888);
+                    break;
+                case 1:
+                    burst.setColor(40027263);
+                    break;
+                default:
+                    burst.setColor(1555150);
+                    break;
+            }
+            burst.setStartingMana(Math.min(getCurrentMana(), getManaPerSec()) / 4);
+            burst.setMana(Math.min(getCurrentMana(), getManaPerSec()) / 4);
+            burst.setManaLossPerTick(20.0F);
+            burst.setMinManaLoss(120);
+        }
+        return burst;
+    }
+
     public abstract String getName();
 
     public abstract int getManaPerSec();

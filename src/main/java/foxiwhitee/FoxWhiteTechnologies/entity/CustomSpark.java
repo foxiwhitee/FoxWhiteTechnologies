@@ -1,6 +1,7 @@
 package foxiwhitee.FoxWhiteTechnologies.entity;
 
 import baubles.common.lib.PlayerHandler;
+import foxiwhitee.FoxWhiteTechnologies.config.WTConfig;
 import foxiwhitee.FoxWhiteTechnologies.proxy.ClientProxy;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
@@ -37,12 +38,20 @@ public abstract class CustomSpark  extends Entity implements ISparkEntity {
 
     boolean firstTick;
 
+    private final int manaPerSec;
+
     public CustomSpark(World world) {
         super(world);
         this.transfers = Collections.newSetFromMap(new WeakHashMap<>());
         this.removeTransferants = 2;
         this.firstTick = false;
         this.isImmuneToFire = true;
+        this.manaPerSec = switch (getType()) {
+            case ASGARD -> WTConfig.manaPerSecSparkAsgard;
+            case HELHELM -> WTConfig.manaPerSecSparkHelhelm;
+            case VALHALLA -> WTConfig.manaPerSecSparkValhalla;
+            case MIDGARD -> WTConfig.manaPerSecSparkMidgard;
+        };
     }
 
     public static void particleBeam(Entity e1, Entity e2) {
@@ -138,7 +147,7 @@ public abstract class CustomSpark  extends Entity implements ISparkEntity {
                             } else {
                                 receivingStacks = receivingPlayers.get(player);
                             }
-                            int recv = Math.min(getAttachedTile().getCurrentMana(), Math.min(250000, manaItem.getMaxMana(stack) - manaItem.getMana(stack)));
+                            int recv = Math.min(getAttachedTile().getCurrentMana(), Math.min(manaPerSec, manaItem.getMaxMana(stack) - manaItem.getMana(stack)));
                             if (recv <= 0)
                                 continue;
                             receivingStacks.put(stack, Integer.valueOf(recv));
@@ -186,7 +195,7 @@ public abstract class CustomSpark  extends Entity implements ISparkEntity {
             }
         }
         if (!transfers.isEmpty()) {
-            int manaTotal = Math.min(250000 * transfers.size(), tile.getCurrentMana());
+            int manaTotal = Math.min(manaPerSec * transfers.size(), tile.getCurrentMana());
             int manaForEach = manaTotal / transfers.size();
             int manaSpent = 0;
             if (manaForEach > transfers.size()) {
