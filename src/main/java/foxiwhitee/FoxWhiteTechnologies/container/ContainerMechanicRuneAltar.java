@@ -15,32 +15,11 @@ import net.minecraft.tileentity.TileEntity;
 
 import java.util.List;
 
-public class ContainerMechanicRuneAltar extends FoxBaseContainer {
+public class ContainerMechanicRuneAltar extends ContainerMechanicBlock {
 
     public ContainerMechanicRuneAltar(EntityPlayer ip, TileMechanicRuneAltar myTile) {
-        super(ip.inventory, myTile);
-
-        bindPlayerInventory(ip.inventory, 45, 214);
+        super(ip, myTile, "noLivingRock", "mechanicManaBlockUpgrade", 1);
 
         addSlotToContainer(new SlotFiltered("livingRock", myTile.getInternalInventory(), 0, 125, 67, ip.inventory));
-
-        for (int i = 0; i < 6; ++i) {
-            for (int j = 0; j < 4; ++j) {
-                addSlotToContainer(new SlotFiltered("noLivingRock", myTile.getInternalInventory(), j + i * 4 + 1, 35 + j * 18, 59 + i * 18, ip.inventory));
-            }
-        }
-
-        for (int i = 0; i < 6; ++i) {
-            for (int j = 0; j < 4; ++j) {
-                addSlotToContainer(new Slot(myTile.getOutputInventory(), j + i * 4, 161 + j * 18, 59 + i * 18) {
-                    @Override
-                    public boolean isItemValid(ItemStack stack) {
-                        return false;
-                    }
-                });
-            }
-        }
-
     }
-
 }

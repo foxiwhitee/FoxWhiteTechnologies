@@ -1,0 +1,94 @@
+{
+  "crafts": [
+    {
+      "type": "workbenchShaped",
+      "output": "<foxwhitetechnologies:infinityManaUpgrade>",
+      "inputs": [
+        "<foxwhitetechnologies:malachite>", "<foxwhitetechnologies:asgardSpark>", "<foxwhitetechnologies:malachite>",
+        "<foxwhitetechnologies:asgardSpark>", "<Botania:pool.1>", "<foxwhitetechnologies:asgardSpark>",
+        "<foxwhitetechnologies:malachite>", "<foxwhitetechnologies:asgardSpark>", "<foxwhitetechnologies:malachite>"
+      ]
+    },
+    {
+      "type": "workbenchShaped",
+      "output": "<foxwhitetechnologies:infinityWaterUpgrade>",
+      "inputs": [
+        "<foxwhitetechnologies:malachite>", "<foxwhitetechnologies:asgardianBlock>", "<foxwhitetechnologies:malachite>",
+        "<foxwhitetechnologies:asgardianBlock>", "<minecraft:water_bucket>", "<foxwhitetechnologies:asgardianBlock>",
+        "<foxwhitetechnologies:malachite>", "<foxwhitetechnologies:asgardianBlock>", "<foxwhitetechnologies:malachite>"
+      ]
+    },
+    {
+      "type": "workbenchShaped",
+      "output": "<foxwhitetechnologies:speedUpgrade>",
+      "inputs": [
+        "<Botania:spreader.3>", "<foxwhitetechnologies:malachite>", "<Botania:spreader.3>",
+        "<foxwhitetechnologies:malachite>", "<foxwhitetechnologies:malachite>", "<foxwhitetechnologies:malachite>",
+        "<Botania:spreader.3>", "<foxwhitetechnologies:malachite>", "<Botania:spreader.3>"
+      ]
+    },
+    {
+      "type": "workbenchShaped",
+      "output": "<foxwhitetechnologies:speedUpgrade.1>",
+      "inputs": [
+        "<Botania:spreader.3>", "<Botania:spreader.3>", "<foxwhitetechnologies:valhallaIngot>",
+        "<Botania:spreader.3>", "<foxwhitetechnologies:speedUpgrade>", "<Botania:spreader.3>",
+        "<foxwhitetechnologies:valhallaIngot>", "<Botania:spreader.3>", "<Botania:spreader.3>"
+      ]
+    },
+    {
+      "type": "workbenchShaped",
+      "output": "<foxwhitetechnologies:speedUpgrade.2>",
+      "inputs": [
+        "<foxwhitetechnologies:midgardIngot>", "<foxwhitetechnologies:midgardSpreader>", "<foxwhitetechnologies:valhallaIngot>",
+        "<foxwhitetechnologies:valhallaIngot>", "<foxwhitetechnologies:speedUpgrade.1>", "<foxwhitetechnologies:valhallaIngot>",
+        "<foxwhitetechnologies:valhallaIngot>", "<foxwhitetechnologies:midgardSpreader>", "<foxwhitetechnologies:midgardIngot>"
+      ]
+    },
+    {
+      "type": "workbenchShaped",
+      "output": "<foxwhitetechnologies:speedUpgrade.3>",
+      "inputs": [
+        "<foxwhitetechnologies:asgardianIngot>", "<foxwhitetechnologies:asgardianIngot>", "<foxwhitetechnologies:asgardianIngot>",
+        "<foxwhitetechnologies:asgardianIngot>", "<foxwhitetechnologies:speedUpgrade.2>", "<foxwhitetechnologies:asgardianIngot>",
+        "<foxwhitetechnologies:asgardianIngot>", "<foxwhitetechnologies:asgardianIngot>", "<foxwhitetechnologies:asgardianIngot>"
+      ]
+    },
+    {
+      "type": "workbenchShaped",
+      "output": "<foxwhitetechnologies:storageUpgrade>",
+      "inputs": [
+        "<foxwhitetechnologies:malachite>", "<foxwhitetechnologies:malachite>", "<foxwhitetechnologies:malachite>",
+        "<foxwhitetechnologies:malachite>", "<foxwhitetechnologies:midgardPool>", "<foxwhitetechnologies:malachite>",
+        "<foxwhitetechnologies:malachite>", "<foxwhitetechnologies:malachite>", "<foxwhitetechnologies:malachite>"
+      ]
+    },
+    {
+      "type": "workbenchShaped",
+      "output": "<foxwhitetechnologies:storageUpgrade.1>",
+      "inputs": [
+        "<Botania:pool>", "<Botania:pool>", "<foxwhitetechnologies:valhallaIngot>",
+        "<Botania:pool>", "<foxwhitetechnologies:storageUpgrade>", "<Botania:pool>",
+        "<foxwhitetechnologies:valhallaIngot>", "<foxwhitetechnologies:valhallaPool>", "<Botania:pool>"
+      ]
+    },
+    {
+      "type": "workbenchShaped",
+      "output": "<foxwhitetechnologies:storageUpgrade.2>",
+      "inputs": [
+        "<foxwhitetechnologies:midgardIngot>", "<foxwhitetechnologies:midgardPool>", "<foxwhitetechnologies:valhallaIngot>",
+        "<foxwhitetechnologies:valhallaIngot>", "<foxwhitetechnologies:storageUpgrade.1>", "<foxwhitetechnologies:valhallaIngot>",
+        "<foxwhitetechnologies:valhallaIngot>", "<foxwhitetechnologies:helheimPool>", "<foxwhitetechnologies:midgardIngot>"
+      ]
+    },
+    {
+      "type": "workbenchShaped",
+      "output": "<foxwhitetechnologies:storageUpgrade.3>",
+      "inputs": [
+        "<foxwhitetechnologies:asgardianIngot>", "<foxwhitetechnologies:asgardianIngot>", "<foxwhitetechnologies:asgardianIngot>",
+        "<foxwhitetechnologies:asgardianIngot>", "<foxwhitetechnologies:storageUpgrade.2>", "<foxwhitetechnologies:asgardianIngot>",
+        "<foxwhitetechnologies:asgardianIngot>", "<foxwhitetechnologies:asgardPool>", "<foxwhitetechnologies:asgardianIngot>"
+      ]
+    }
+  ]
+}

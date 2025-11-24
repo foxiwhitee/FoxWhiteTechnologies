@@ -1,7 +1,9 @@
-package foxiwhitee.FoxWhiteTechnologies.world;
+package foxiwhitee.FoxWhiteTechnologies.worldgen;
 
 import cpw.mods.fml.common.IWorldGenerator;
 import foxiwhitee.FoxWhiteTechnologies.ModBlocks;
+import net.minecraft.block.Block;
+import net.minecraft.init.Blocks;
 import net.minecraft.world.World;
 import net.minecraft.world.chunk.IChunkProvider;
 import net.minecraft.world.gen.feature.WorldGenMinable;
@@ -9,11 +11,8 @@ import net.minecraft.world.gen.feature.WorldGenMinable;
 import java.util.Random;
 
 public class WorldGenMalachiteOre implements IWorldGenerator {
-
-    private final WorldGenMinable oreGen;
-
     public WorldGenMalachiteOre() {
-        oreGen = new WorldGenMinable(ModBlocks.MALACHITE_ORE, 4);
+
     }
 
     @Override
@@ -26,24 +25,16 @@ public class WorldGenMalachiteOre implements IWorldGenerator {
     }
 
     private void generateOverworld(World world, Random rand, int x, int z) {
-        int baseAttempts = 1;
+        this.addOreSpawn(ModBlocks.MALACHITE_ORE, world, rand, x, z, 3, 5, 2, 1, 16);
+    }
 
-        if (rand.nextInt(5) != 0) return;
-
-        for (int i = 0; i < baseAttempts; i++) {
-
-            int posX = x + rand.nextInt(16);
-            int posZ = z + rand.nextInt(16);
-
-            int posY = getWeightedHeight(rand);
-
-            oreGen.generate(world, rand, posX, posY, posZ);
+    public void addOreSpawn(Block block, World world, Random random, int chunkXPos, int chunkZPos, int minVainSize, int maxVainSize, int chancesToSpawn, int minY, int maxY) {
+        for(int i = 0; i < chancesToSpawn; ++i) {
+            int posX = chunkXPos + random.nextInt(16);
+            int posY = minY + random.nextInt(maxY - minY);
+            int posZ = chunkZPos + random.nextInt(16);
+            (new WorldGenMinable(block, 0, minVainSize + random.nextInt(maxVainSize - minVainSize), Blocks.stone)).generate(world, random, posX, posY, posZ);
         }
     }
 
-    private int getWeightedHeight(Random rand) {
-        double r = rand.nextDouble();
-        double weighted = 1.0 - Math.sqrt(r);
-        return (int) (1 + weighted * 254);
-    }
 }

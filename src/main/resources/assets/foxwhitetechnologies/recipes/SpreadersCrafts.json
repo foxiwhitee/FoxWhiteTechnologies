@@ -1,0 +1,40 @@
+{
+  "crafts": [
+    {
+      "type": "workbenchShaped",
+      "output": "<foxwhitetechnologies:midgardSpreader>",
+      "inputs": [
+        "null", "null", "null",
+        "<foxwhitetechnologies:midgardIngot>", "<foxwhitetechnologies:midgardIngot>", "<foxwhitetechnologies:midgardIngot>",
+        "<foxwhitetechnologies:midgardBlock>", "<Botania:spreader.3>", "<foxwhitetechnologies:midgardBlock>"
+      ]
+    },
+    {
+      "type": "workbenchShaped",
+      "output": "<foxwhitetechnologies:valhallaSpreader>",
+      "inputs": [
+        "null", "null", "null",
+        "<foxwhitetechnologies:valhallaIngot>", "<foxwhitetechnologies:valhallaIngot>", "<foxwhitetechnologies:valhallaIngot>",
+        "<foxwhitetechnologies:valhallaBlock>", "<foxwhitetechnologies:midgardSpreader>", "<foxwhitetechnologies:valhallaBlock>"
+      ]
+    },
+    {
+      "type": "workbenchShaped",
+      "output": "<foxwhitetechnologies:helheimSpreader>",
+      "inputs": [
+        "null", "null", "null",
+        "<foxwhitetechnologies:helheimIngot>", "<foxwhitetechnologies:helheimIngot>", "<foxwhitetechnologies:helheimIngot>",
+        "<foxwhitetechnologies:helheimBlock>", "<foxwhitetechnologies:valhallaSpreader>", "<foxwhitetechnologies:helheimBlock>"
+      ]
+    },
+    {
+      "type": "workbenchShaped",
+      "output": "<foxwhitetechnologies:asgardSpreader>",
+      "inputs": [
+        "null", "null", "null",
+        "<foxwhitetechnologies:asgardianIngot>", "<foxwhitetechnologies:asgardianIngot>", "<foxwhitetechnologies:asgardianIngot>",
+        "<foxwhitetechnologies:asgardianBlock>", "<foxwhitetechnologies:helheimSpreader>", "<foxwhitetechnologies:asgardianBlock>"
+      ]
+    }
+  ]
+}

@@ -1,23 +1,18 @@
 package foxiwhitee.FoxWhiteTechnologies.blocks;
 
-import cpw.mods.fml.client.registry.ISimpleBlockRenderingHandler;
-import cpw.mods.fml.client.registry.RenderingRegistry;
 import foxiwhitee.FoxLib.block.FoxBaseBlock;
 import foxiwhitee.FoxWhiteTechnologies.FoxWTCore;
-import foxiwhitee.FoxWhiteTechnologies.client.render.RenderCustomSpreader;
 import foxiwhitee.FoxWhiteTechnologies.config.WTConfig;
 import foxiwhitee.FoxWhiteTechnologies.tile.spreaders.TileAsgardSpreader;
-import foxiwhitee.FoxWhiteTechnologies.tile.spreaders.TileHelhelmSpreader;
+import foxiwhitee.FoxWhiteTechnologies.tile.spreaders.TileHelheimSpreader;
 import foxiwhitee.FoxWhiteTechnologies.tile.spreaders.TileMidgardSpreader;
 import foxiwhitee.FoxWhiteTechnologies.tile.spreaders.TileValhallaSpreader;
 import foxiwhitee.FoxWhiteTechnologies.util.RenderIDs;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockPistonBase;
 import net.minecraft.block.ITileEntityProvider;
-import net.minecraft.block.material.Material;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.ScaledResolution;
-import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
@@ -35,7 +30,7 @@ import vazkii.botania.common.block.tile.mana.TileSpreader;
 import vazkii.botania.common.item.ModItems;
 
 public class BlockCustomSpreader extends FoxBaseBlock implements ITileEntityProvider, IWandable, IWandHUD, IWireframeAABBProvider {
-    public enum Type {MIDGARD, VALHALLA, HELHELM, ASGARD}
+    public enum Type {MIDGARD, VALHALLA, HELHEIM, ASGARD}
 
     private final Type type;
 
@@ -72,7 +67,7 @@ public class BlockCustomSpreader extends FoxBaseBlock implements ITileEntityProv
     public int getManaPerSec() {
         return switch (type) {
             case ASGARD -> WTConfig.manaPerSecAsgardSpreader;
-            case HELHELM -> WTConfig.manaPerSecHelhelmSpreader;
+            case HELHEIM -> WTConfig.manaPerSecHelheimSpreader;
             case VALHALLA -> WTConfig.manaPerSecValhallaSpreader;
             case MIDGARD -> WTConfig.manaPerSecMidgardSpreader;
         };
@@ -144,7 +139,7 @@ public class BlockCustomSpreader extends FoxBaseBlock implements ITileEntityProv
     public TileEntity createNewTileEntity(World world, int meta) {
         return switch (type) {
             case ASGARD -> new TileAsgardSpreader();
-            case HELHELM -> new TileHelhelmSpreader();
+            case HELHEIM -> new TileHelheimSpreader();
             case VALHALLA -> new TileValhallaSpreader();
             case MIDGARD -> new TileMidgardSpreader();
         };
@@ -163,7 +158,7 @@ public class BlockCustomSpreader extends FoxBaseBlock implements ITileEntityProv
         return switch (type){
             case MIDGARD -> RenderIDs.MIDGARD_SPREADER.getId();
             case VALHALLA -> RenderIDs.VALHALLA_SPREADER.getId();
-            case HELHELM -> RenderIDs.HELHELM_SPREADER.getId();
+            case HELHEIM -> RenderIDs.HELHEIM_SPREADER.getId();
             case ASGARD -> RenderIDs.ASGARD_SPREADER.getId();
         };
     }

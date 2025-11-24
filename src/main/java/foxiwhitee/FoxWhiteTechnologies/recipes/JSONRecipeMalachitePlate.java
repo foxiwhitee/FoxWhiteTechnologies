@@ -178,7 +178,7 @@ public class JSONRecipeMalachitePlate implements IJsonRecipe<Object, ItemStack> 
             int colonNumber = matcher.group(3) != null ? Integer.parseInt(matcher.group(3)) : 1;
             return new Parsed(first, second, colonNumber);
         } else {
-            throw new RuntimeException("ItemStack should have the form <modId:name.meta:count> where meta and count are optional");
+            throw new RuntimeException("Oredict should have the form <modId:name:count> where count are optional");
         }
     }
 

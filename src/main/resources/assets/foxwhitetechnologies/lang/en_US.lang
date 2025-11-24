@@ -1,4 +1,78 @@
+itemGroup.FOX_WHITE_TECHNOLOGIES_TAB=Fox White Technologies
 
+#Blocks
+tile.manaCharger.name=§bMana charger
+
+tile.asgardPool.name=§4Asgard Mana Pool
+tile.helheimPool.name=§5Helheim Mana Pool
+tile.valhallaPool.name=§6Valhalla Mana Pool
+tile.midgardPool.name=§3Midgard Mana Pool
+tile.asgardSpreader.name=§4Asgard Mana Spreader
+tile.helheimSpreader.name=§5Helheim Mana Spreader
+tile.valhallaSpreader.name=§6Valhalla Mana Spreader
+tile.midgardSpreader.name=§3Midgard Mana Spreader
+
+tile.botania:pool0.name=Mana Pool
+tile.botania:pool1.name=The Everlasting Guilty Pool
+tile.botania:pool2.name=Diluted Mana Pool
+tile.botania:pool3.name=Fabulous Mana Pool
+
+tile.asgardianBlock.name=§4Asgardian Block
+tile.helheimBlock.name=§5Helheim Block
+tile.valhallaBlock.name=§6Valhalla Block
+tile.midgardBlock.name=§3Midgard Block
+
+tile.malachitePlate.name=Malachite Plate
+
+tile.malachiteOre.name=Malachite Ore
+
+tile.mechanicManaPool.name=Mechanic Mana Pool
+tile.mechanicRuneAltar.name=Mechanic Rune Altar
+tile.mechanicElvenTrade.name=Mechanic Elven Trade
+tile.mechanicMalachitePlate.name=Mechanic Malachite Plate
+tile.mechanicPetals.name=Mechanic Petal Apothecary
+tile.mechanicPureDaisy.name=Mechanic Pure Daisy
+
+#Items
+item.asgardSpark.name=§4Asgard Spark
+item.helheimSpark.name=§5Helheim Spark
+item.valhallaSpark.name=§6Valhalla Spark
+item.midgardSpark.name=§3Midgard Spark
+
+item.asgardianIngot.name=§4Asgardian Ingot
+item.helheimIngot.name=§5Helheim Ingot
+item.valhallaIngot.name=§6Valhalla Ingot
+item.midgardIngot.name=§3Midgard Ingot
+
+item.infinityManaUpgrade.name=Infinity Mana Upgrade
+item.infinityWaterUpgrade.name=Infinity Water Upgrade
+item.speedUpgrade.name=Speed Upgrade %s
+item.storageUpgrade.name=Storage Upgrade %s
+
+item.malachite.name=Malachite
+
+#Tooltips
+tooltip.customManaPool=§9Stores %s normal mana pools
+tooltip.customManaSpreader=§9Transfers %s mana to in tick
+tooltip.spark=§9Transfers %s mana to in tick
+
+tooltip.upgradeFor=§3The improvement applies to the following blocks:
+
+tooltip.infinityManaUpgrade.description=Blocks do not cost mana with this upgrade
+tooltip.infinityWaterUpgrade.description=Blocks do not cost water with this upgrade
+tooltip.speedUpgrade.description=Speeds up the block by %s%%
+tooltip.storageUpgrade.description=Increasing storage by %s
+
+tooltip.malachitePlate=Malachite Plate
 tooltip.malachitePlate.tier.0=§2Terrasteel tier
+tooltip.malachitePlate.tier.1=§3Midgard tier
+tooltip.malachitePlate.tier.2=§6Valhalla tier
+tooltip.malachitePlate.tier.3=§5Helheim tier
 
+botania.category.malachite=Malachite
+botania.entry.malachitePlate=Malachite Plate
 botania.page.malachitePlate0=While searching for gems in a mine, you came across an unknown material. After careful examination, you discovered that it was not half metal, half crystal. You decided to name it malachite, after your first gemstone.
+botania.page.malachitePlate1=Tier 1
+botania.page.malachitePlate2=Tier 2
+botania.page.malachitePlate3=Tier 3
+botania.page.malachitePlate4=Tier 4

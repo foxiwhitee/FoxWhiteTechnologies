@@ -79,7 +79,8 @@ public class TileMalachitePlate extends FoxBaseTile implements ISparkAttachable 
 
         mb.addComponent(0, 0, 0, foxiwhitee.FoxWhiteTechnologies.ModBlocks.MALACHITE_PLATE, 0);
         mb.setRenderOffset(0, 1, 0);
-        return mb.makeSetRegisterStructure(TileMalachitePlate.class, foxiwhitee.FoxWhiteTechnologies.ModBlocks.MALACHITE_PLATE, new MultiblockComponent[0]);
+        mb.registerStructure(TileMalachitePlate.class, foxiwhitee.FoxWhiteTechnologies.ModBlocks.MALACHITE_PLATE, new MultiblockComponent[0]);
+        return mb.makeSet();
     }
 
     private static void initMultiBlockStructure() {
@@ -91,7 +92,7 @@ public class TileMalachitePlate extends FoxBaseTile implements ISparkAttachable 
         final ItemStack terraSteelBlock = new ItemStack(ModBlocks.storage, 1, 1);
         final ItemStack midgardBlock = new ItemStack(foxiwhitee.FoxWhiteTechnologies.ModBlocks.MIDGARD_BLOCK);
         final ItemStack valhallaBlock = new ItemStack(foxiwhitee.FoxWhiteTechnologies.ModBlocks.VALHALLA_BLOCK);
-        final ItemStack helhelmBlock = new ItemStack(foxiwhitee.FoxWhiteTechnologies.ModBlocks.HELHEIM_BLOCK);
+        final ItemStack helheimBlock = new ItemStack(foxiwhitee.FoxWhiteTechnologies.ModBlocks.HELHEIM_BLOCK);
         final ItemStack obsidian = new ItemStack(Blocks.obsidian);
         TIER_1.addAll(Arrays.asList(
             new MBPart(livingRock, 0, -1, 0),
@@ -269,15 +270,15 @@ public class TileMalachitePlate extends FoxBaseTile implements ISparkAttachable 
             new MBPart(valhallaBlock, -4, -1, 2),
             new MBPart(valhallaBlock, -2, -1, 4),
 
-            new MBPart(helhelmBlock, 0, -1, -3),
-            new MBPart(helhelmBlock, 0, -1, 3),
-            new MBPart(helhelmBlock, -3, -1, 0),
-            new MBPart(helhelmBlock, 3, -1, 0),
+            new MBPart(helheimBlock, 0, -1, -3),
+            new MBPart(helheimBlock, 0, -1, 3),
+            new MBPart(helheimBlock, -3, -1, 0),
+            new MBPart(helheimBlock, 3, -1, 0),
 
-            new MBPart(helhelmBlock, -2, -1, -2),
-            new MBPart(helhelmBlock, 2, -1, -2),
-            new MBPart(helhelmBlock, 2, -1, 2),
-            new MBPart(helhelmBlock, -2, -1, 2),
+            new MBPart(helheimBlock, -2, -1, -2),
+            new MBPart(helheimBlock, 2, -1, -2),
+            new MBPart(helheimBlock, 2, -1, 2),
+            new MBPart(helheimBlock, -2, -1, 2),
 
             new MBPart(midgardBlock, -4, -1, -4),
             new MBPart(midgardBlock, 4, -1, -4),

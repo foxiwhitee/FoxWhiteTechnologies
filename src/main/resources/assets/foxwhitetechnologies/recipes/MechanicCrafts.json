@@ -1,0 +1,63 @@
+{
+  "crafts": [
+    {
+      "type": "workbenchShaped",
+      "output": "<foxwhitetechnologies:mechanicRuneAltar>",
+      "inputs": [
+        "<ore:blockIron>", "<Botania:runeAltar>", "<ore:blockIron>",
+        "<ore:blockRedstone>", "<Botania:pool>", "<ore:blockRedstone>",
+        "<minecraft:piston>", "<foxwhitetechnologies:asgardianBlock>", "<minecraft:piston>"
+      ]
+    },
+    {
+      "type": "workbenchShaped",
+      "output": "<foxwhitetechnologies:mechanicManaPool>",
+      "inputs": [
+        "<ore:blockIron>", "<foxwhitetechnologies:valhallaPool>", "<ore:blockIron>",
+        "<ore:blockRedstone>", "<ore:livingrock>", "<ore:blockRedstone>",
+        "<minecraft:piston>", "<foxwhitetechnologies:asgardianBlock>", "<minecraft:piston>"
+      ]
+    },
+    {
+      "type": "workbenchShaped",
+      "output": "<foxwhitetechnologies:mechanicElvenTrade>",
+      "inputs": [
+        "<ore:blockIron>", "<Botania:alfheimPortal>", "<ore:blockIron>",
+        "<ore:blockRedstone>", "<Botania:pool>", "<ore:blockRedstone>",
+        "<minecraft:piston>", "<foxwhitetechnologies:asgardianBlock>", "<minecraft:piston>"
+      ]
+    },
+    {
+      "type": "workbenchShaped",
+      "output": "<foxwhitetechnologies:mechanicMalachitePlate>",
+      "inputs": [
+        "<ore:blockIron>", "<foxwhitetechnologies:malachitePlate>", "<ore:blockIron>",
+        "<ore:blockRedstone>", "<Botania:pool>", "<ore:blockRedstone>",
+        "<minecraft:piston>", "<foxwhitetechnologies:asgardianBlock>", "<minecraft:piston>"
+      ]
+    },
+    {
+      "type": "workbenchShaped",
+      "output": "<foxwhitetechnologies:mechanicPetals>",
+      "inputs": [
+        "<ore:blockIron>", "<Botania:altar>", "<ore:blockIron>",
+        "<ore:blockRedstone>", "<minecraft:bucket>", "<ore:blockRedstone>",
+        "<minecraft:piston>", "<foxwhitetechnologies:asgardianBlock>", "<minecraft:piston>"
+      ]
+    },
+    {
+      "type": "workbenchShaped",
+      "output": "<foxwhitetechnologies:mechanicPureDaisy>",
+      "inputs": [
+        "<ore:blockIron>", {
+          "value": "<Botania:specialFlower>",
+          "tag": {
+            "type": "puredaisy"
+          }
+        }, "<ore:blockIron>",
+        "<ore:blockRedstone>", "<ore:grass>", "<ore:blockRedstone>",
+        "<minecraft:piston>", "<foxwhitetechnologies:asgardianBlock>", "<minecraft:piston>"
+      ]
+    }
+  ]
+}

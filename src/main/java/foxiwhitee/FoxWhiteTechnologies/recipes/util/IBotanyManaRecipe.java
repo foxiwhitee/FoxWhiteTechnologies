@@ -2,17 +2,10 @@ package foxiwhitee.FoxWhiteTechnologies.recipes.util;
 
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.crafting.IRecipe;
 
 import java.util.List;
 
-public interface IBotanyManaRecipe {
-    List<Object> getInputs();
-    ItemStack getOutput();
+public interface IBotanyManaRecipe extends IBotanyRecipe {
     int getManaUsage();
-
-    boolean upgradedMatches(IInventory inv, boolean b);
-
-    default boolean matches(IInventory inv) {
-        return upgradedMatches(inv, false);
-    }
 }

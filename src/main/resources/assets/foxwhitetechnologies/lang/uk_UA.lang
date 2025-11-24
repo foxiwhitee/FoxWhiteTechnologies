@@ -1,0 +1,78 @@
+itemGroup.FOX_WHITE_TECHNOLOGIES_TAB=Fox White Technologies
+
+#Blocks
+tile.manaCharger.name=§bМана зарядник
+
+tile.asgardPool.name=§4Асгардський басейн мани
+tile.helheimPool.name=§5Хельхельмовський басейн мани
+tile.valhallaPool.name=§6Вальгальський басейн мани
+tile.midgardPool.name=§3Мідгардський басейн мани
+tile.asgardSpreader.name=§4Асгардський розсіювач мани
+tile.helheimSpreader.name=§5Хельхельмовський розсіювач мани
+tile.valhallaSpreader.name=§6Вальгальський розсіювач мани
+tile.midgardSpreader.name=§3Мідгардський розсіювач мани
+
+tile.botania:pool0.name=Басейн мани
+tile.botania:pool1.name=Вічно наповнений басейн мани
+tile.botania:pool2.name=Розбавлений басейн мани
+tile.botania:pool3.name=Чудовий басейн мани
+
+tile.asgardianBlock.name=§4Асгардський блок
+tile.helheimBlock.name=§5Хельхельмовський блок
+tile.valhallaBlock.name=§6Вальгальський блок
+tile.midgardBlock.name=§3Мідгардський блок
+
+tile.malachitePlate.name=Малахітова плита
+
+tile.malachiteOre.name=Малахітова руда
+
+tile.mechanicManaPool.name=Механічний басейн мани
+tile.mechanicRuneAltar.name=Механічний рунічний вівтарь
+tile.mechanicElvenTrade.name=Механічна ельфійська торгівля
+tile.mechanicMalachitePlate.name=Механічна малахітова плита
+tile.mechanicPetals.name=Механічний пелюстковий аптекарь
+tile.mechanicPureDaisy.name=Механічна чиста ромашка
+
+#Items
+item.asgardSpark.name=§4Асгардська іскра
+item.helheimSpark.name=§5Хельхельмовська іскра
+item.valhallaSpark.name=§6Вальгальська іскра
+item.midgardSpark.name=§3Мідгарська іскра
+
+item.asgardianIngot.name=§4Асгардський зливок
+item.helheimIngot.name=§5Хельхельмовський зливок
+item.valhallaIngot.name=§6Вальгальський зливок
+item.midgardIngot.name=§3Мідгардський зливок
+
+item.infinityManaUpgrade.name=Поліпшення нескінченої мани
+item.infinityWaterUpgrade.name=Поліпшення нескінченої води
+item.speedUpgrade.name=Поліпшення швидкості %s
+item.storageUpgrade.name=Поліпшення сховища %s
+
+item.malachite.name=Малахіт
+
+#Tooltips
+tooltip.customManaPool=§9Зберігає %s нормальних басейнів мани
+tooltip.customManaSpreader=§9Передає %s мани в in tick
+tooltip.spark=§9Передає %s мани в in tick
+
+tooltip.upgradeFor=§3Покращення стосується таких блоків:
+
+tooltip.infinityManaUpgrade.description=Блоки не витрачають ману з цим покращенням
+tooltip.infinityWaterUpgrade.description=Блоки не витрачають воду з цим оновленням
+tooltip.speedUpgrade.description=Прискорює блок на %s%%
+tooltip.storageUpgrade.description=Збільшує сховища на %s
+
+tooltip.malachitePlate=Малахітова плита
+tooltip.malachitePlate.tier.0=§2Рівень террасталі
+tooltip.malachitePlate.tier.1=§3Рівень мідгарду
+tooltip.malachitePlate.tier.2=§6Рівнь вальхали
+tooltip.malachitePlate.tier.3=§5Рівнь хельхельму
+
+botania.category.malachite=Малахіт
+botania.entry.malachitePlate=Малахітова плита
+botania.page.malachitePlate0=Під час пошуків дорогоцінного каміння в шахті ви натрапили на невідомий матеріал. Після ретельного дослідження ви виявили, що це наполовину метал, наполовину кристал. Ви вирішили назвати його малахітом, на честь вашого першого дорогоцінного каменю.
+botania.page.malachitePlate1=Рівень 1
+botania.page.malachitePlate2=Рівень 2
+botania.page.malachitePlate3=Рівень 3
+botania.page.malachitePlate4=Рівень 4

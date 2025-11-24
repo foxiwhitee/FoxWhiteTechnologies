@@ -37,7 +37,7 @@ public class TileMechanicRuneAltar extends TileMechanicManaBlock<CustomRecipeRun
         }
     }
 
-    protected void craftRecipe() {
+    protected void craftRecipe(int bonus) {
         if (currentRecipe == null)
             return;
 
@@ -66,6 +66,7 @@ public class TileMechanicRuneAltar extends TileMechanicManaBlock<CustomRecipeRun
         }
 
         ItemStack out = currentRecipe.getOutput().copy();
+        out.stackSize += out.stackSize * bonus;
         insertOutput(out);
     }
 

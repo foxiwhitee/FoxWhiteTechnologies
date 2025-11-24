@@ -2,6 +2,7 @@ package foxiwhitee.FoxWhiteTechnologies.blocks;
 
 import foxiwhitee.FoxLib.block.FoxBaseBlock;
 import foxiwhitee.FoxWhiteTechnologies.FoxWTCore;
+import foxiwhitee.FoxWhiteTechnologies.proxy.CommonProxy;
 import foxiwhitee.FoxWhiteTechnologies.tile.TileMalachitePlate;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.item.EntityItem;
@@ -28,7 +29,6 @@ import vazkii.botania.common.lexicon.page.PageText;
 public class BlockMalachitePlate extends FoxBaseBlock implements ILexiconable {
     public static IIcon overlay;
     IIcon[] icons;
-    private static LexiconEntry entry;
 
     public BlockMalachitePlate(String name) {
         super(FoxWTCore.MODID, name);
@@ -114,18 +114,6 @@ public class BlockMalachitePlate extends FoxBaseBlock implements ILexiconable {
     }
 
     private static LexiconEntry getEntry() {
-        if (entry == null) {
-            LexiconCategory category = new LexiconCategory("malachite");
-            BotaniaAPI.addCategory(category);
-            entry = new BLexiconEntry("malachitePlate", category);
-            entry.setLexiconPages(new LexiconPage[]{
-                new PageText("0"),
-                new PageMultiblock("1", TileMalachitePlate.makeMultiblockSet(0)),
-                new PageMultiblock("2", TileMalachitePlate.makeMultiblockSet(1)),
-                new PageMultiblock("3", TileMalachitePlate.makeMultiblockSet(2)),
-                new PageMultiblock("4", TileMalachitePlate.makeMultiblockSet(3)),
-            });
-        }
-        return entry;
+        return CommonProxy.getMalachiteEntry();
     }
 }

@@ -2,13 +2,13 @@ package foxiwhitee.FoxWhiteTechnologies.entity;
 
 import net.minecraft.world.World;
 
-public class HelhelmSpark extends CustomSpark{
-    public HelhelmSpark(World world) {
+public class HelheimSpark extends CustomSpark{
+    public HelheimSpark(World world) {
         super(world);
     }
 
     @Override
     public Type getType() {
-        return Type.HELHELM;
+        return Type.HELHEIM;
     }
 }

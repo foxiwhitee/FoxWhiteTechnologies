@@ -1,0 +1,40 @@
+{
+  "crafts": [
+    {
+      "type": "workbenchShaped",
+      "output": "<foxwhitetechnologies:midgardPool>",
+      "inputs": [
+        "null", "null", "null",
+        "<foxwhitetechnologies:midgardIngot>", "<foxwhitetechnologies:midgardIngot>", "<foxwhitetechnologies:midgardIngot>",
+        "<foxwhitetechnologies:midgardBlock>", "<Botania:pool>", "<foxwhitetechnologies:midgardBlock>"
+      ]
+    },
+    {
+      "type": "workbenchShaped",
+      "output": "<foxwhitetechnologies:valhallaPool>",
+      "inputs": [
+        "null", "null", "null",
+        "<foxwhitetechnologies:valhallaIngot>", "<foxwhitetechnologies:valhallaIngot>", "<foxwhitetechnologies:valhallaIngot>",
+        "<foxwhitetechnologies:valhallaBlock>", "<foxwhitetechnologies:midgardPool>", "<foxwhitetechnologies:valhallaBlock>"
+      ]
+    },
+    {
+      "type": "workbenchShaped",
+      "output": "<foxwhitetechnologies:helheimPool>",
+      "inputs": [
+        "null", "null", "null",
+        "<foxwhitetechnologies:helheimIngot>", "<foxwhitetechnologies:helheimIngot>", "<foxwhitetechnologies:helheimIngot>",
+        "<foxwhitetechnologies:helheimBlock>", "<foxwhitetechnologies:valhallaPool>", "<foxwhitetechnologies:helheimBlock>"
+      ]
+    },
+    {
+      "type": "workbenchShaped",
+      "output": "<foxwhitetechnologies:asgardPool>",
+      "inputs": [
+        "null", "null", "null",
+        "<foxwhitetechnologies:asgardianIngot>", "<foxwhitetechnologies:asgardianIngot>", "<foxwhitetechnologies:asgardianIngot>",
+        "<foxwhitetechnologies:asgardianBlock>", "<foxwhitetechnologies:helheimPool>", "<foxwhitetechnologies:asgardianBlock>"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,22 @@
+{
+  "crafts": [
+    {
+      "type": "workbenchShaped",
+      "output": "<foxwhitetechnologies:malachitePlate>",
+      "inputs": [
+        "<foxwhitetechnologies:malachite>", "<foxwhitetechnologies:malachite>", "<foxwhitetechnologies:malachite>",
+        "<foxwhitetechnologies:malachite>", "<Botania:terraPlate>", "<foxwhitetechnologies:malachite>",
+        "<foxwhitetechnologies:malachite>", "<foxwhitetechnologies:malachite>", "<foxwhitetechnologies:malachite>"
+      ]
+    },
+    {
+      "type": "workbenchShaped",
+      "output": "<foxwhitetechnologies:manaCharger>",
+      "inputs": [
+        "<Botania:storage.2>", "<Botania:storage.4>", "<Botania:storage.2>",
+        "<Botania:storage.4>", "<Botania:manaTablet>", "<Botania:storage.4>",
+        "<Botania:storage.2>", "<Botania:storage.4>", "<Botania:storage.2>"
+      ]
+    }
+  ]
+}

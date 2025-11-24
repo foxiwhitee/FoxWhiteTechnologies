@@ -6,7 +6,6 @@ import foxiwhitee.FoxWhiteTechnologies.config.WTConfig;
 import foxiwhitee.FoxWhiteTechnologies.entity.*;
 import foxiwhitee.FoxWhiteTechnologies.proxy.ClientProxy;
 import net.minecraft.client.renderer.texture.IIconRegister;
-import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.Item;
@@ -18,7 +17,6 @@ import net.minecraft.world.World;
 import vazkii.botania.api.internal.VanillaPacketDispatcher;
 import vazkii.botania.api.mana.IManaGivingItem;
 import vazkii.botania.api.mana.spark.ISparkAttachable;
-import vazkii.botania.api.mana.spark.ISparkEntity;
 import vazkii.botania.common.achievement.ICraftAchievement;
 import vazkii.botania.common.achievement.ModAchievements;
 import vazkii.botania.common.item.ModItems;
@@ -26,7 +24,7 @@ import vazkii.botania.common.item.ModItems;
 import java.util.List;
 
 public class ItemCustomSpark extends Item implements ICraftAchievement, IManaGivingItem {
-    public enum Type{ASGARD, HELHELM, VALHALLA, MIDGARD}
+    public enum Type{ASGARD, HELHEIM, VALHALLA, MIDGARD}
 
     private final int manaPerSec;
     private final Type type;
@@ -34,7 +32,7 @@ public class ItemCustomSpark extends Item implements ICraftAchievement, IManaGiv
     public ItemCustomSpark(String name, Type type) {
         this.manaPerSec = switch (type) {
             case ASGARD -> WTConfig.manaPerSecSparkAsgard;
-            case HELHELM -> WTConfig.manaPerSecSparkHelhelm;
+            case HELHEIM -> WTConfig.manaPerSecSparkHelheim;
             case VALHALLA -> WTConfig.manaPerSecSparkValhalla;
             case MIDGARD -> WTConfig.manaPerSecSparkMidgard;
         };
@@ -51,7 +49,7 @@ public class ItemCustomSpark extends Item implements ICraftAchievement, IManaGiv
                 if (!world.isRemote) {
                     CustomSpark spark = switch (type) {
                         case ASGARD -> new AsgardSpark(world);
-                        case HELHELM -> new HelhelmSpark(world);
+                        case HELHEIM -> new HelheimSpark(world);
                         case VALHALLA -> new ValhallaSpark(world);
                         case MIDGARD -> new MidgardSpark(world);
                     };
@@ -75,7 +73,7 @@ public class ItemCustomSpark extends Item implements ICraftAchievement, IManaGiv
     public int getColorFromItemStack(ItemStack stack, int pass) {
         return switch (type) {
             case ASGARD -> ClientProxy.sparkColorAsgard;
-            case HELHELM -> ClientProxy.sparkColorHelhelm;
+            case HELHEIM -> ClientProxy.sparkColorHelheim;
             case VALHALLA -> ClientProxy.sparkColorValhalla;
             case MIDGARD -> ClientProxy.sparkColorMidgard;
         };

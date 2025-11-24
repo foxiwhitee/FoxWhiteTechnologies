@@ -1,18 +1,14 @@
 package foxiwhitee.FoxWhiteTechnologies.blocks;
 
-import cpw.mods.fml.client.registry.ISimpleBlockRenderingHandler;
-import cpw.mods.fml.client.registry.RenderingRegistry;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import foxiwhitee.FoxLib.block.FoxBaseBlock;
 import foxiwhitee.FoxWhiteTechnologies.FoxWTCore;
-import foxiwhitee.FoxWhiteTechnologies.client.render.RenderCustomManaPool;
 import foxiwhitee.FoxWhiteTechnologies.config.WTConfig;
 import foxiwhitee.FoxWhiteTechnologies.tile.pools.*;
 import foxiwhitee.FoxWhiteTechnologies.util.RenderIDs;
 import net.minecraft.block.Block;
 import net.minecraft.block.ITileEntityProvider;
-import net.minecraft.block.material.Material;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.ScaledResolution;
 import net.minecraft.client.renderer.texture.IIconRegister;
@@ -42,7 +38,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class BlockCustomManaPool extends FoxBaseBlock implements ITileEntityProvider, IWandHUD, IWandable, ICraftAchievement {
-    public enum Type { MIDGARD, VALHALLA, HELHELM, ASGARD }
+    public enum Type { MIDGARD, VALHALLA, HELHEIM, ASGARD }
 
     public static IIcon manaIcon;
     boolean lastFragile;
@@ -53,7 +49,7 @@ public class BlockCustomManaPool extends FoxBaseBlock implements ITileEntityProv
         super(FoxWTCore.MODID, name);
         this.maxMana = switch (type) {
             case ASGARD -> WTConfig.manaAsgardPool;
-            case HELHELM -> WTConfig.manaHelhelmPool;
+            case HELHEIM -> WTConfig.manaHelheimPool;
             case VALHALLA -> WTConfig.manaValhallaPool;
             case MIDGARD -> WTConfig.manaMidgardPool;
             default -> 0;
@@ -103,7 +99,7 @@ public class BlockCustomManaPool extends FoxBaseBlock implements ITileEntityProv
     public TileEntity createNewTileEntity(World world, int meta) {
         return switch (type) {
             case ASGARD -> new TileAsgardManaPool();
-            case HELHELM -> new TileHelHelmManaPool();
+            case HELHEIM -> new TileHelheimManaPool();
             case VALHALLA -> new TileValhallaManaPool();
             case MIDGARD -> new TileMidgardManaPool();
         };
@@ -174,7 +170,7 @@ public class BlockCustomManaPool extends FoxBaseBlock implements ITileEntityProv
         return switch (type){
             case MIDGARD -> RenderIDs.MIDGARD_MANA_POOL.getId();
             case VALHALLA -> RenderIDs.VALHALLA_MANA_POOL.getId();
-            case HELHELM -> RenderIDs.HELHELM_MANA_POOL.getId();
+            case HELHEIM -> RenderIDs.HELHEIM_MANA_POOL.getId();
             case ASGARD -> RenderIDs.ASGARD_MANA_POOL.getId();
         };
     }

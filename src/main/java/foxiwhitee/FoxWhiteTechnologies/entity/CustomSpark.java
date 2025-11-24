@@ -24,7 +24,7 @@ import java.util.*;
 import java.util.List;
 
 public abstract class CustomSpark  extends Entity implements ISparkEntity {
-    public enum Type{ASGARD, HELHELM, VALHALLA, MIDGARD}
+    public enum Type{ASGARD, HELHEIM, VALHALLA, MIDGARD}
 
     public static final int INVISIBILITY_DATA_WATCHER_KEY = 27;
 
@@ -48,7 +48,7 @@ public abstract class CustomSpark  extends Entity implements ISparkEntity {
         this.isImmuneToFire = true;
         this.manaPerSec = switch (getType()) {
             case ASGARD -> WTConfig.manaPerSecSparkAsgard;
-            case HELHELM -> WTConfig.manaPerSecSparkHelhelm;
+            case HELHEIM -> WTConfig.manaPerSecSparkHelheim;
             case VALHALLA -> WTConfig.manaPerSecSparkValhalla;
             case MIDGARD -> WTConfig.manaPerSecSparkMidgard;
         };
@@ -81,7 +81,7 @@ public abstract class CustomSpark  extends Entity implements ISparkEntity {
     public int getColor() {
         return switch (getType()) {
             case ASGARD -> ClientProxy.sparkColorAsgard;
-            case HELHELM -> ClientProxy.sparkColorHelhelm;
+            case HELHEIM -> ClientProxy.sparkColorHelheim;
             case VALHALLA -> ClientProxy.sparkColorValhalla;
             case MIDGARD -> ClientProxy.sparkColorMidgard;
         };
@@ -122,7 +122,7 @@ public abstract class CustomSpark  extends Entity implements ISparkEntity {
                     receivingPlayers = new HashMap<>();
                     Item item = switch (getType()) {
                         case ASGARD -> foxiwhitee.FoxWhiteTechnologies.ModItems.ASGARD_SPARK;
-                        case HELHELM -> foxiwhitee.FoxWhiteTechnologies.ModItems.HELHELM_SPARK;
+                        case HELHEIM -> foxiwhitee.FoxWhiteTechnologies.ModItems.HELHEIM_SPARK;
                         case VALHALLA -> foxiwhitee.FoxWhiteTechnologies.ModItems.VALHALLA_SPARK;
                         case MIDGARD -> foxiwhitee.FoxWhiteTechnologies.ModItems.MIDGARD_SPARK;
                     };
@@ -301,7 +301,7 @@ public abstract class CustomSpark  extends Entity implements ISparkEntity {
             int upgrade = getUpgrade();
             Item item = switch (getType()) {
                 case ASGARD -> foxiwhitee.FoxWhiteTechnologies.ModItems.ASGARD_SPARK;
-                case HELHELM -> foxiwhitee.FoxWhiteTechnologies.ModItems.HELHELM_SPARK;
+                case HELHEIM -> foxiwhitee.FoxWhiteTechnologies.ModItems.HELHEIM_SPARK;
                 case VALHALLA -> foxiwhitee.FoxWhiteTechnologies.ModItems.VALHALLA_SPARK;
                 case MIDGARD -> foxiwhitee.FoxWhiteTechnologies.ModItems.MIDGARD_SPARK;
             };

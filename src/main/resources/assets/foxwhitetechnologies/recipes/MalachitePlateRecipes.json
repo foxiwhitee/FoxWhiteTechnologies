@@ -76,13 +76,13 @@
       "tier": 3,
       "mana": 500000,
       "output": "<foxwhitetechnologies:asgardSpark>",
-      "inputs": ["<foxwhitetechnologies:helhelmSpark>", "<foxwhitetechnologies:asgardianBlock>", "<ore:runeManaB:18>"]
+      "inputs": ["<foxwhitetechnologies:helheimSpark>", "<foxwhitetechnologies:asgardianBlock>", "<ore:runeManaB:18>"]
     },
     {
       "type": "malachitePlate",
       "tier": 2,
       "mana": 200000,
-      "output": "<foxwhitetechnologies:helhelmSpark>",
+      "output": "<foxwhitetechnologies:helheimSpark>",
       "inputs": ["<foxwhitetechnologies:valhallaSpark>", "<foxwhitetechnologies:helheimBlock>", "<ore:runeManaB:12>"]
     },
     {

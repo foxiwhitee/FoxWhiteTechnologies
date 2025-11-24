@@ -33,6 +33,34 @@ public class ContentConfig {
     public static boolean enableMalachiteOre = true;
 
 
+    @ConfigValue(category = "Content.Mechanic.Upgrades", desc = "Enable Infinity Mana Upgrade")
+    public static boolean enableInfinityManaUpgrade = true;
+
+    @ConfigValue(category = "Content.Mechanic.Upgrades", desc = "Enable Infinity Water Upgrade")
+    public static boolean enableInfinityWaterUpgrade = true;
+
+    @ConfigValue(category = "Content.Mechanic.Upgrades", desc = "Enable Speed Upgrades")
+    public static boolean enableSpeedUpgrades = true;
+
+    @ConfigValue(category = "Content.Mechanic.Upgrades", desc = "Enable Storage Upgrades")
+    public static boolean enableStorageUpgrades = true;
+
+
+    @ConfigValue(category = "Content.Mechanic", desc = "Enable Mechanic Elven Trade")
+    public static boolean enableMechanicElvenTrader = true;
+
+    @ConfigValue(category = "Content.Mechanic", desc = "Enable Mechanic Malachite Plate")
+    public static boolean enableMechanicMalachitePlate = true;
+
+    @ConfigValue(category = "Content.Mechanic", desc = "Enable Mechanic Mana Pool")
+    public static boolean enableMechanicManaPool = true;
+
+    @ConfigValue(category = "Content.Mechanic", desc = "Enable Mechanic Petal Apothecary")
+    public static boolean enableMechanicPetals = true;
+
+    @ConfigValue(category = "Content.Mechanic", desc = "Enable Mechanic Pure Daisy")
+    public static boolean enableMechanicPureDaisy = true;
+
     @ConfigValue(category = "Content.Mechanic", desc = "Enable Mechanic Rune Altar")
     public static boolean enableMechanicRuneAltar = true;
 }
