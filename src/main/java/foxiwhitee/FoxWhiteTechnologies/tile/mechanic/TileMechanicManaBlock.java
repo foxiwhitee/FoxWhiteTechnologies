@@ -38,8 +38,8 @@ public abstract class TileMechanicManaBlock<T extends IBotanyManaRecipe> extends
     }
 
     @Override
-    public void onChangeInventory(IInventory iInventory, int i, InvOperation invOperation, ItemStack itemStack, ItemStack itemStack1) {
-        super.onChangeInventory(iInventory, i, invOperation, itemStack, itemStack1);
+    protected void inventoryCheck(IInventory iInventory, int i, InvOperation invOperation, ItemStack itemStack, ItemStack itemStack1) {
+        super.inventoryCheck(iInventory, i, invOperation, itemStack, itemStack1);
         if (iInventory == getUpgradesInventory()) {
             this.maxMana = 1000000;
             this.infinityMana = false;
@@ -64,7 +64,6 @@ public abstract class TileMechanicManaBlock<T extends IBotanyManaRecipe> extends
                 mana = 0;
             }
         }
-        markForUpdate();
     }
 
     @TileEvent(TileEventType.SERVER_NBT_READ)
@@ -73,6 +72,7 @@ public abstract class TileMechanicManaBlock<T extends IBotanyManaRecipe> extends
         mana = data.getInteger("mana");
         maxMana = data.getInteger("maxMana");
         infinityMana = data.getBoolean("infinityMana");
+        markForUpdate();
     }
 
     @TileEvent(TileEventType.SERVER_NBT_WRITE)
@@ -85,6 +85,7 @@ public abstract class TileMechanicManaBlock<T extends IBotanyManaRecipe> extends
 
     @TileEvent(TileEventType.CLIENT_NBT_WRITE)
     public void writeToStream(ByteBuf data) {
+        super.writeToStream(data);
         data.writeInt(mana);
         data.writeInt(maxMana);
         data.writeBoolean(infinityMana);
@@ -97,7 +98,7 @@ public abstract class TileMechanicManaBlock<T extends IBotanyManaRecipe> extends
         mana = data.readInt();
         maxMana = data.readInt();
         infinityMana = data.readBoolean();
-        return oldMana != mana && oldMaxMana != maxMana && oldInfMana != infinityMana && superRead;
+        return oldMana != mana || oldMaxMana != maxMana || oldInfMana != infinityMana || superRead;
     }
 
     @Override

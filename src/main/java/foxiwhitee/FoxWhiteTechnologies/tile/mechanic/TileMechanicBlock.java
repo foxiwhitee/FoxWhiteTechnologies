@@ -42,6 +42,9 @@ public abstract class TileMechanicBlock<T extends IBotanyRecipe> extends FoxBase
         }
         if (currentRecipe != null && additionallyConditionForCrafting()) {
             progress += 1;
+            if (!worldObj.isRemote) {
+                markForUpdate();
+            }
             if (progress >= getRealSpeed()) {
                 if (productivity > 0) {
                     productivityHistory.merge(currentRecipe, 1.0, Double::sum);
@@ -73,6 +76,11 @@ public abstract class TileMechanicBlock<T extends IBotanyRecipe> extends FoxBase
 
     @Override
     public void onChangeInventory(IInventory iInventory, int i, InvOperation invOperation, ItemStack itemStack, ItemStack itemStack1) {
+        inventoryCheck(iInventory, i, invOperation, itemStack, itemStack1);
+        markForUpdate();
+    }
+
+    protected void inventoryCheck (IInventory iInventory, int i, InvOperation invOperation, ItemStack itemStack, ItemStack itemStack1) {
         if (iInventory == upgrades) {
             this.speedBonus = 0;
             this.productivity = 0;
@@ -108,7 +116,6 @@ public abstract class TileMechanicBlock<T extends IBotanyRecipe> extends FoxBase
             }
             this.speedBonus = Math.min(speedBonus, 100);
         }
-        markForUpdate();
     }
 
     @TileEvent(TileEventType.SERVER_NBT_READ)
@@ -144,7 +151,7 @@ public abstract class TileMechanicBlock<T extends IBotanyRecipe> extends FoxBase
         progress = data.readInt();
         speedBonus = data.readInt();
         productivity = data.readInt();
-        return oldProgress != progress && oldSpeedBonus != speedBonus && oldProductivity != productivity;
+        return oldProgress != progress || oldSpeedBonus != speedBonus || oldProductivity != productivity;
     }
 
     protected void craftRecipe(int bonus) {

@@ -10,6 +10,7 @@ import foxiwhitee.FoxWhiteTechnologies.recipes.util.CustomRecipePetals;
 import foxiwhitee.FoxWhiteTechnologies.recipes.util.CustomRecipeRuneAltar;
 import foxiwhitee.FoxWhiteTechnologies.util.RecipeInitializer;
 import io.netty.buffer.ByteBuf;
+import net.minecraft.init.Items;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
@@ -38,14 +39,15 @@ public class TileMechanicPetals extends TileMechanicBlock<CustomRecipePetals> im
 
     @Override
     protected void afterCrafting() {
+        super.afterCrafting();
         if (!infinityWater) {
             tank.drain(1000, true);
         }
     }
 
     @Override
-    public void onChangeInventory(IInventory iInventory, int i, InvOperation invOperation, ItemStack itemStack, ItemStack itemStack1) {
-        super.onChangeInventory(iInventory, i, invOperation, itemStack, itemStack1);
+    protected void inventoryCheck(IInventory iInventory, int i, InvOperation invOperation, ItemStack itemStack, ItemStack itemStack1) {
+        super.inventoryCheck(iInventory, i, invOperation, itemStack, itemStack1);
         if (iInventory == getUpgradesInventory()) {
             this.infinityWater = false;
             for (int j = 0; j < getUpgradesInventory().getSizeInventory(); j++) {
@@ -55,7 +57,32 @@ public class TileMechanicPetals extends TileMechanicBlock<CustomRecipePetals> im
                 }
             }
         }
-        markForUpdate();
+    }
+
+    protected void craftRecipe(int bonus) {
+        if (currentRecipe == null)
+            return;
+
+        for (int slot : usedSlots) {
+            if (getInternalInventory().getStackInSlot(slot) != null) {
+                ItemStack stack = getInternalInventory().getStackInSlot(slot);
+                if (stack != null && stack.getItem() != Items.wheat_seeds)
+                    consumeItem(stack);
+                if (stack.stackSize <= 0)
+                    getInternalInventory().setInventorySlotContents(slot, null);
+            }
+        }
+        updateCountInStacks();
+
+        if (getInternalInventory().getStackInSlot(0) != null) {
+            getInternalInventory().getStackInSlot(0).stackSize--;
+            if (getInternalInventory().getStackInSlot(0).stackSize <= 0)
+                getInternalInventory().setInventorySlotContents(0, null);
+        }
+
+        ItemStack out = currentRecipe.getOutput().copy();
+        out.stackSize += out.stackSize * bonus;
+        insertOutput(out);
     }
 
     protected void updateRecipeIfNeeded() {
@@ -109,7 +136,7 @@ public class TileMechanicPetals extends TileMechanicBlock<CustomRecipePetals> im
             tank.setFluid(new FluidStack(fluid, amount));
         }
 
-        return changed && oldInfinityWater != infinityWater;
+        return changed || oldInfinityWater != infinityWater;
     }
 
     @Override
@@ -172,5 +199,9 @@ public class TileMechanicPetals extends TileMechanicBlock<CustomRecipePetals> im
     @Override
     public FluidTankInfo[] getTankInfo(ForgeDirection from) {
         return new FluidTankInfo[] { tank.getInfo() };
+    }
+
+    public boolean isInfinityWater() {
+        return infinityWater;
     }
 }

@@ -38,10 +38,10 @@ public class TileMechanicManaPool extends TileMechanicManaBlock<CustomRecipeMana
             alchemy = false;
             conjuration = false;
             if (itemStack1 != null) {
-                if (Block.getBlockFromItem(itemStack1.getItem()) instanceof BlockAlchemyCatalyst) {
-                    alchemy = true;
-                } else if (Block.getBlockFromItem(itemStack1.getItem()) instanceof BlockConjurationCatalyst) {
+                if (Block.getBlockFromItem(itemStack1.getItem()) instanceof BlockConjurationCatalyst) {
                     conjuration = true;
+                } else if (Block.getBlockFromItem(itemStack1.getItem()) instanceof BlockAlchemyCatalyst) {
+                    alchemy = true;
                 }
             }
         }
@@ -95,6 +95,7 @@ public class TileMechanicManaPool extends TileMechanicManaBlock<CustomRecipeMana
         super.readFromNBT_(data);
         alchemy = data.getBoolean("alchemy");
         conjuration = data.getBoolean("conjuration");
+        markForUpdate();
     }
 
     @Override
@@ -106,16 +107,18 @@ public class TileMechanicManaPool extends TileMechanicManaBlock<CustomRecipeMana
     }
 
     @Override
+    @TileEvent(TileEventType.CLIENT_NBT_READ)
     public boolean readFromStream(ByteBuf data) {
         boolean old = super.readFromStream(data);
         boolean oldAl = alchemy;
         boolean oldConj = conjuration;
         alchemy = data.readBoolean();
         conjuration = data.readBoolean();
-        return old && oldAl != alchemy && oldConj != conjuration;
+        return old || oldAl != alchemy || oldConj != conjuration;
     }
 
     @Override
+    @TileEvent(TileEventType.CLIENT_NBT_WRITE)
     public void writeToStream(ByteBuf data) {
         super.writeToStream(data);
         data.writeBoolean(alchemy);

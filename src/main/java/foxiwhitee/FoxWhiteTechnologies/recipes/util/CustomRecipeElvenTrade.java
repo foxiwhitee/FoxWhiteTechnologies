@@ -1,5 +1,6 @@
 package foxiwhitee.FoxWhiteTechnologies.recipes.util;
 
+import foxiwhitee.FoxWhiteTechnologies.util.StackOreDict;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.oredict.OreDictionary;
@@ -63,6 +64,25 @@ public class CustomRecipeElvenTrade implements IBotanyManaRecipe{
                     Object input = inputsMissing.get(j);
                     if (input instanceof String) {
                         List<ItemStack> validStacks = OreDictionary.getOres((String)input);
+                        boolean found = false;
+
+                        for(ItemStack ostack : validStacks) {
+                            if (OreDictionary.itemMatches(ostack, stack, false)) {
+                                if (!stacksToRemove.contains(stack)) {
+                                    stacksToRemove.add(stack);
+                                }
+
+                                oredictIndex = j;
+                                found = true;
+                                break;
+                            }
+                        }
+
+                        if (found) {
+                            break;
+                        }
+                    } else if (input instanceof StackOreDict) {
+                        List<ItemStack> validStacks = OreDictionary.getOres((String)((StackOreDict) input).getOre());
                         boolean found = false;
 
                         for(ItemStack ostack : validStacks) {
