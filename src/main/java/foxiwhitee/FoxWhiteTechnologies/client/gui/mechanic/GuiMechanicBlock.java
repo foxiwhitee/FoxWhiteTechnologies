@@ -1,13 +1,11 @@
-package foxiwhitee.FoxWhiteTechnologies.client.gui;
+package foxiwhitee.FoxWhiteTechnologies.client.gui.mechanic;
 
 import foxiwhitee.FoxLib.client.gui.FoxBaseGui;
 import foxiwhitee.FoxLib.utils.ProductivityUtil;
 import foxiwhitee.FoxLib.utils.helpers.UtilGui;
 import foxiwhitee.FoxWhiteTechnologies.FoxWTCore;
-import foxiwhitee.FoxWhiteTechnologies.container.ContainerMechanicBlock;
-import foxiwhitee.FoxWhiteTechnologies.container.ContainerMechanicRuneAltar;
+import foxiwhitee.FoxWhiteTechnologies.container.mechanic.ContainerMechanicBlock;
 import foxiwhitee.FoxWhiteTechnologies.tile.mechanic.TileMechanicBlock;
-import foxiwhitee.FoxWhiteTechnologies.tile.mechanic.TileMechanicRuneAltar;
 
 public abstract class GuiMechanicBlock extends FoxBaseGui {
     protected final ContainerMechanicBlock container;

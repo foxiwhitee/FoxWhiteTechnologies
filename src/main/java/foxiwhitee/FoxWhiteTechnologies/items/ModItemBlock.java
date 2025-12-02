@@ -44,6 +44,15 @@ public class ModItemBlock extends ItemBlock {
                 this.blockType.equals(ModBlocks.VALHALLA_SPREADER) ||
                 this.blockType.equals(ModBlocks.MIDGARD_SPREADER)) {
                 list.add(LocalizationUtils.localize("tooltip.customManaSpreader", ((BlockCustomSpreader) blockType).getManaPerSec()));
+            } else if (this.blockType.equals(ModBlocks.GREENHOUSE)) {
+                list.add(LocalizationUtils.localize("tooltip.greenhouse.description",
+                    LocalizationUtils.localize("tile.botania:flower.endoflame.name"),
+                    LocalizationUtils.localize("tile.botania:flower.entropinnyum.name"),
+                    LocalizationUtils.localize("tile.botania:flower.gourmaryllis.name")
+                ));
+                if (WTConfig.greenhouseGenerationLoss > 0) {
+                    list.add(LocalizationUtils.localize("tooltip.greenhouse.loss", WTConfig.greenhouseGenerationLoss));
+                }
             }
         }
     }

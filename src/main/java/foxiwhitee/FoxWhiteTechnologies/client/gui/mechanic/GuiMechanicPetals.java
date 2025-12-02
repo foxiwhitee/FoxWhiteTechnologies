@@ -1,10 +1,8 @@
-package foxiwhitee.FoxWhiteTechnologies.client.gui;
+package foxiwhitee.FoxWhiteTechnologies.client.gui.mechanic;
 
 import foxiwhitee.FoxLib.utils.ProductivityUtil;
 import foxiwhitee.FoxLib.utils.helpers.UtilGui;
-import foxiwhitee.FoxWhiteTechnologies.container.ContainerMechanicPetals;
-import foxiwhitee.FoxWhiteTechnologies.container.ContainerMechanicRuneAltar;
-import foxiwhitee.FoxWhiteTechnologies.tile.mechanic.TileMechanicBlock;
+import foxiwhitee.FoxWhiteTechnologies.container.mechanic.ContainerMechanicPetals;
 import foxiwhitee.FoxWhiteTechnologies.tile.mechanic.TileMechanicPetals;
 
 public class GuiMechanicPetals extends GuiMechanicBlock {

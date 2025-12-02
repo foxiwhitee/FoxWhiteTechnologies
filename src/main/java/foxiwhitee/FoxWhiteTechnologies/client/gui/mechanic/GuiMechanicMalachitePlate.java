@@ -1,7 +1,6 @@
-package foxiwhitee.FoxWhiteTechnologies.client.gui;
+package foxiwhitee.FoxWhiteTechnologies.client.gui.mechanic;
 
-import foxiwhitee.FoxWhiteTechnologies.container.ContainerMechanicMalachitePlate;
-import foxiwhitee.FoxWhiteTechnologies.container.ContainerMechanicRuneAltar;
+import foxiwhitee.FoxWhiteTechnologies.container.mechanic.ContainerMechanicMalachitePlate;
 
 public class GuiMechanicMalachitePlate extends GuiMechanicBlock {
     public GuiMechanicMalachitePlate(ContainerMechanicMalachitePlate container) {

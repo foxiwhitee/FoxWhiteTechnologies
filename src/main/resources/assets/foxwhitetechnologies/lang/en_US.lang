@@ -33,6 +33,8 @@ tile.mechanicMalachitePlate.name=Mechanic Malachite Plate
 tile.mechanicPetals.name=Mechanic Petal Apothecary
 tile.mechanicPureDaisy.name=Mechanic Pure Daisy
 
+tile.greenhouse.name=Greenhouse
+
 #Items
 item.asgardSpark.name=§4Asgard Spark
 item.helheimSpark.name=§5Helheim Spark
@@ -52,6 +54,12 @@ item.storageUpgrade.name=Storage Upgrade %s
 item.malachite.name=Malachite
 
 #Tooltips
+tooltip.greenhouse.description=§9Generates mana from %s, %s, and %s
+tooltip.greenhouse.loss=§9Loses §4%s%%§9 of generated mana
+
+tooltip.resourceEfficiencyUpgrade.description0=§9Reduces the amount of resources needed by 2 times
+tooltip.resourceEfficiencyUpgrade.description1=§9Reduces the amount of resources needed by 3 times
+
 tooltip.customManaPool=§9Stores %s normal mana pools
 tooltip.customManaSpreader=§9Transfers %s mana to in tick
 tooltip.spark=§9Transfers %s mana to in tick

@@ -1,7 +1,6 @@
-package foxiwhitee.FoxWhiteTechnologies.client.gui;
+package foxiwhitee.FoxWhiteTechnologies.client.gui.mechanic;
 
-import foxiwhitee.FoxWhiteTechnologies.container.ContainerMechanicElvenTrade;
-import foxiwhitee.FoxWhiteTechnologies.container.ContainerMechanicRuneAltar;
+import foxiwhitee.FoxWhiteTechnologies.container.mechanic.ContainerMechanicElvenTrade;
 
 public class GuiMechanicElvenTrade extends GuiMechanicBlock {
     public GuiMechanicElvenTrade(ContainerMechanicElvenTrade container) {

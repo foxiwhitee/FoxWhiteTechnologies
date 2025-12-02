@@ -97,4 +97,12 @@ public class WTConfig {
 
     @ConfigValue(category = "Mechanic.Upgrades", min = "1", max = "100", desc = "How many percent faster will the mechanical unit work with this improvement?")
     public static int speedUpgradeBonus4 = 80;
+
+
+    @ConfigValue(category = "Greenhouse", name = "generationLoss", min = "0", max = "100", desc = "What percentage of mana is lost when generating?")
+    public static int greenhouseGenerationLoss = 50;
+
+    @ConfigValue(category = "Greenhouse", name = "speed", desc = "How many seconds will it take to generate mana one time?")
+    public static int greenhouseSpeed = 10;
+
 }

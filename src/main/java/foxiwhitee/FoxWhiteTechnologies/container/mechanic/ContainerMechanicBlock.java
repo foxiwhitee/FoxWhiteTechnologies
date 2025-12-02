@@ -1,9 +1,8 @@
-package foxiwhitee.FoxWhiteTechnologies.container;
+package foxiwhitee.FoxWhiteTechnologies.container.mechanic;
 
 import foxiwhitee.FoxLib.container.FoxBaseContainer;
 import foxiwhitee.FoxLib.container.slots.SlotFiltered;
 import foxiwhitee.FoxWhiteTechnologies.tile.mechanic.TileMechanicBlock;
-import foxiwhitee.FoxWhiteTechnologies.tile.mechanic.TileMechanicRuneAltar;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;

@@ -63,4 +63,11 @@ public class ContentConfig {
 
     @ConfigValue(category = "Content.Mechanic", desc = "Enable Mechanic Rune Altar")
     public static boolean enableMechanicRuneAltar = true;
+
+
+    @ConfigValue(category = "Content.Greenhouse", desc = "Enable Greenhouse")
+    public static boolean enableGreenhouse = true;
+
+    @ConfigValue(category = "Content.Greenhouse.Upgrades", desc = "Enable Resources Efficiency Upgrades")
+    public static boolean enableResourcesEfficiencyUpgrades = true;
 }

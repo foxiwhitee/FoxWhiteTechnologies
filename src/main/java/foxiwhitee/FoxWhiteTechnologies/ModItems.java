@@ -28,6 +28,7 @@ public class ModItems {
     public static final Item INFINITY_WATER_UPGRADE = new ItemInfinityWaterUpgrade("infinityWaterUpgrade");
     public static final Item SPEED_UPGRADE = new ItemSpeedUpgrade("speedUpgrade");
     public static final Item STORAGE_UPGRADE = new ItemStorageUpgrade("storageUpgrade");
+    public static final Item RESOURCES_EFFICIENCY_UPGRADE = new ItemResourceEfficiencyUpgrade("resourcesEfficiencyUpgrade");
 
     public static void registerItems() {
         if (ContentConfig.enableSparks) {
@@ -54,6 +55,9 @@ public class ModItems {
         }
         if (ContentConfig.enableStorageUpgrades) {
             RegisterUtils.registerItems(STORAGE_UPGRADE);
+        }
+        if (ContentConfig.enableResourcesEfficiencyUpgrades) {
+            RegisterUtils.registerItems(RESOURCES_EFFICIENCY_UPGRADE);
         }
     }
 }

@@ -1,7 +1,6 @@
-package foxiwhitee.FoxWhiteTechnologies.client.gui;
+package foxiwhitee.FoxWhiteTechnologies.client.gui.mechanic;
 
-import foxiwhitee.FoxWhiteTechnologies.container.ContainerMechanicPureDaisy;
-import foxiwhitee.FoxWhiteTechnologies.container.ContainerMechanicRuneAltar;
+import foxiwhitee.FoxWhiteTechnologies.container.mechanic.ContainerMechanicPureDaisy;
 
 public class GuiMechanicPureDaisy extends GuiMechanicBlock {
     public GuiMechanicPureDaisy(ContainerMechanicPureDaisy container) {

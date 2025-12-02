@@ -1,7 +1,6 @@
-package foxiwhitee.FoxWhiteTechnologies.client.gui;
+package foxiwhitee.FoxWhiteTechnologies.client.gui.mechanic;
 
-import foxiwhitee.FoxWhiteTechnologies.container.ContainerMechanicManaPool;
-import foxiwhitee.FoxWhiteTechnologies.container.ContainerMechanicRuneAltar;
+import foxiwhitee.FoxWhiteTechnologies.container.mechanic.ContainerMechanicManaPool;
 
 public class GuiMechanicManaPool extends GuiMechanicBlock {
     public GuiMechanicManaPool(ContainerMechanicManaPool container) {

@@ -7,6 +7,7 @@ import foxiwhitee.FoxWhiteTechnologies.blocks.mechanic.*;
 import foxiwhitee.FoxWhiteTechnologies.config.ContentConfig;
 import foxiwhitee.FoxWhiteTechnologies.items.DefaultItem;
 import foxiwhitee.FoxWhiteTechnologies.items.ModItemBlock;
+import foxiwhitee.FoxWhiteTechnologies.tile.TileGreenhouse;
 import foxiwhitee.FoxWhiteTechnologies.tile.TileMalachitePlate;
 import foxiwhitee.FoxWhiteTechnologies.tile.TileManaCharger;
 import foxiwhitee.FoxWhiteTechnologies.tile.mechanic.*;
@@ -51,6 +52,8 @@ public class ModBlocks {
     public static final Block MALACHITE_PLATE = new BlockMalachitePlate("malachitePlate");
 
     public static final Block MALACHITE_ORE = new BlockMalachiteOre("malachiteOre");
+
+    public static final Block GREENHOUSE = new BlockGreenhouse("greenhouse");
 
     public static void registerBlocks() {
         if (ContentConfig.enableCharger) {
@@ -98,6 +101,10 @@ public class ModBlocks {
         }
         if (ContentConfig.enableMalachiteOre) {
             RegisterUtils.registerBlock(MALACHITE_ORE);
+        }
+        if (ContentConfig.enableGreenhouse) {
+            RegisterUtils.registerBlock(GREENHOUSE);
+            RegisterUtils.registerTile(TileGreenhouse.class);
         }
     }
 }

@@ -16,12 +16,16 @@ import foxiwhitee.FoxWhiteTechnologies.recipes.JSONRecipeMalachitePlate;
 import foxiwhitee.FoxWhiteTechnologies.tile.TileMalachitePlate;
 import foxiwhitee.FoxWhiteTechnologies.worldgen.WorldGenMalachiteOre;
 import net.minecraft.block.Block;
+import net.minecraft.block.BlockTNT;
 import net.minecraft.init.Items;
+import net.minecraft.item.ItemFood;
+import net.minecraft.tileentity.TileEntityFurnace;
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.lexicon.LexiconCategory;
 import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.api.lexicon.LexiconPage;
 import vazkii.botania.common.block.BlockLivingrock;
+import vazkii.botania.common.block.BlockSpecialFlower;
 import vazkii.botania.common.block.mana.BlockAlchemyCatalyst;
 import vazkii.botania.common.block.mana.BlockConjurationCatalyst;
 import vazkii.botania.common.lexicon.BLexiconEntry;
@@ -47,6 +51,13 @@ public class CommonProxy {
         SlotFiltered.filters.put("mechanicManaBlockUpgrade", stack -> stack.getItem() instanceof ItemProductivityCard || stack.getItem() instanceof ItemInfinityManaUpgrade || stack.getItem() instanceof ItemSpeedUpgrade || stack.getItem() instanceof ItemStorageUpgrade);
         SlotFiltered.filters.put("mechanicPetalsUpgrade", stack -> stack.getItem() instanceof ItemProductivityCard || stack.getItem() instanceof ItemInfinityWaterUpgrade || stack.getItem() instanceof ItemSpeedUpgrade);
         SlotFiltered.filters.put("mechanicPureDaisyUpgrade", stack -> stack.getItem() instanceof ItemProductivityCard || stack.getItem() instanceof ItemSpeedUpgrade);
+        SlotFiltered.filters.put("greenhouseUpgrade", stack -> stack.getItem() instanceof ItemProductivityCard || stack.getItem() instanceof ItemSpeedUpgrade || stack.getItem() instanceof ItemResourceEfficiencyUpgrade);
+        SlotFiltered.filters.put("endoflames", stack -> Block.getBlockFromItem(stack.getItem()) instanceof BlockSpecialFlower && stack.getTagCompound().getString("type").equals("endoflame"));
+        SlotFiltered.filters.put("entropinnyums", stack -> Block.getBlockFromItem(stack.getItem()) instanceof BlockSpecialFlower && stack.getTagCompound().getString("type").equals("entropinnyum"));
+        SlotFiltered.filters.put("gourmaryllises", stack -> Block.getBlockFromItem(stack.getItem()) instanceof BlockSpecialFlower && stack.getTagCompound().getString("type").equals("gourmaryllis"));
+        SlotFiltered.filters.put("flammableMaterial", stack -> TileEntityFurnace.getItemBurnTime(stack) > 0);
+        SlotFiltered.filters.put("tnt", stack -> Block.getBlockFromItem(stack.getItem()) instanceof BlockTNT);
+        SlotFiltered.filters.put("food", stack -> stack.getItem() instanceof ItemFood);
 
         if (ContentConfig.enableMalachitePlate) {
             FoxLibApi.instance.registries().registerJsonRecipe().register(JSONRecipeMalachitePlate.class, "malachitePlate");

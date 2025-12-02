@@ -13,12 +13,12 @@ import net.minecraft.util.StatCollector;
 
 import java.util.List;
 
-public class ItemSpeedUpgrade extends DefaultItem {
-    private final static String[] prefixes = {"1", "2", "3", "4"};
+public class ItemResourceEfficiencyUpgrade extends DefaultItem {
+    private final static String[] prefixes = {"1", "2"};
     private final IIcon[] icons = new IIcon[prefixes.length];
     private final String name;
 
-    public ItemSpeedUpgrade(String name) {
+    public ItemResourceEfficiencyUpgrade(String name) {
         super(name);
         this.name = name;
         hasSubtypes = true;
@@ -27,20 +27,8 @@ public class ItemSpeedUpgrade extends DefaultItem {
     @Override
     public void addInformation(ItemStack p_77624_1_, EntityPlayer p_77624_2_, List<String> p_77624_3_, boolean p_77624_4_) {
         if (WTConfig.enable_tooltips) {
-            p_77624_3_.add(StatCollector.translateToLocalFormatted("tooltip.speedUpgrade.description", switch (p_77624_1_.getItemDamage()) {
-                case 0 -> WTConfig.speedUpgradeBonus1;
-                case 1 -> WTConfig.speedUpgradeBonus2;
-                case 2 -> WTConfig.speedUpgradeBonus3;
-                case 3 -> WTConfig.speedUpgradeBonus4;
-                default -> 0;
-            }));
+            p_77624_3_.add(StatCollector.translateToLocal("tooltip.resourceEfficiencyUpgrade.description" + p_77624_1_.getItemDamage()));
             p_77624_3_.add(StatCollector.translateToLocal("tooltip.upgradeFor"));
-            p_77624_3_.add("§3 - " + StatCollector.translateToLocal("tile.mechanicManaPool.name"));
-            p_77624_3_.add("§3 - " + StatCollector.translateToLocal("tile.mechanicRuneAltar.name"));
-            p_77624_3_.add("§3 - " + StatCollector.translateToLocal("tile.mechanicElvenTrade.name"));
-            p_77624_3_.add("§3 - " + StatCollector.translateToLocal("tile.mechanicMalachitePlate.name"));
-            p_77624_3_.add("§3 - " + StatCollector.translateToLocal("tile.mechanicPetals.name"));
-            p_77624_3_.add("§3 - " + StatCollector.translateToLocal("tile.mechanicPureDaisy.name"));
             p_77624_3_.add("§3 - " + StatCollector.translateToLocal("tile.greenhouse.name"));
         }
     }

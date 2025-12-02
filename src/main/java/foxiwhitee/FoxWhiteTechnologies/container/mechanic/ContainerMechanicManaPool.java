@@ -1,8 +1,7 @@
-package foxiwhitee.FoxWhiteTechnologies.container;
+package foxiwhitee.FoxWhiteTechnologies.container.mechanic;
 
 import foxiwhitee.FoxLib.container.slots.SlotFiltered;
 import foxiwhitee.FoxWhiteTechnologies.tile.mechanic.TileMechanicManaPool;
-import foxiwhitee.FoxWhiteTechnologies.tile.mechanic.TileMechanicRuneAltar;
 import net.minecraft.entity.player.EntityPlayer;
 
 public class ContainerMechanicManaPool extends ContainerMechanicBlock {

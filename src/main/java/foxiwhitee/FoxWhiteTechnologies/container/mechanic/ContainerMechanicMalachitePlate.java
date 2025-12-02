@@ -1,7 +1,6 @@
-package foxiwhitee.FoxWhiteTechnologies.container;
+package foxiwhitee.FoxWhiteTechnologies.container.mechanic;
 
 import foxiwhitee.FoxWhiteTechnologies.tile.mechanic.TileMechanicMalachitePlate;
-import foxiwhitee.FoxWhiteTechnologies.tile.mechanic.TileMechanicRuneAltar;
 import net.minecraft.entity.player.EntityPlayer;
 
 public class ContainerMechanicMalachitePlate extends ContainerMechanicBlock {

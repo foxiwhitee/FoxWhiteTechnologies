@@ -33,6 +33,8 @@ tile.mechanicMalachitePlate.name=Механічна малахітова пли�
 tile.mechanicPetals.name=Механічний пелюстковий аптекарь
 tile.mechanicPureDaisy.name=Механічна чиста ромашка
 
+tile.greenhouse.name=Теплиця
+
 #Items
 item.asgardSpark.name=§4Асгардська іскра
 item.helheimSpark.name=§5Хельхельмовська іскра
@@ -52,6 +54,12 @@ item.storageUpgrade.name=Поліпшення сховища %s
 item.malachite.name=Малахіт
 
 #Tooltips
+tooltip.greenhouse.description=§9Генерує ману з %s, %s та %s
+tooltip.greenhouse.loss=§9Втрачає §4%s%%§9 згенерованої мани
+
+tooltip.resourceEfficiencyUpgrade.description0=§9Зменшує кількість необхідних ресурсів у 2 рази
+tooltip.resourceEfficiencyUpgrade.description1=§9Зменшує кількість необхідних ресурсів у 3 рази
+
 tooltip.customManaPool=§9Зберігає %s нормальних басейнів мани
 tooltip.customManaSpreader=§9Передає %s мани в in tick
 tooltip.spark=§9Передає %s мани в in tick

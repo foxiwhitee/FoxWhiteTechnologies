@@ -80,7 +80,7 @@ public abstract class TileMechanicBlock<T extends IBotanyRecipe> extends FoxBase
         markForUpdate();
     }
 
-    protected void inventoryCheck (IInventory iInventory, int i, InvOperation invOperation, ItemStack itemStack, ItemStack itemStack1) {
+    protected void inventoryCheck(IInventory iInventory, int i, InvOperation invOperation, ItemStack itemStack, ItemStack itemStack1) {
         if (iInventory == upgrades) {
             this.speedBonus = 0;
             this.productivity = 0;
