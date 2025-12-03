@@ -11,7 +11,7 @@ public class ContainerGreenhouse extends FoxBaseContainer {
     public ContainerGreenhouse(EntityPlayer ip, TileGreenhouse myTile) {
         super(ip.inventory, myTile);
 
-        bindPlayerInventory(ip.inventory, 53, 184);
+        bindPlayerInventory(ip.inventory, 45, 184);
 
         for (int l = 0; l < 3; l++) {
             addSlotToContainer(new SlotFiltered("greenhouseUpgrade", myTile.getUpgradesInventory(), l, 107 + 18 * l, 151, ip.inventory));
@@ -29,17 +29,17 @@ public class ContainerGreenhouse extends FoxBaseContainer {
 
         for (int i = 0; i < 3; ++i) {
             for (int j = 0; j < 3; ++j) {
-                addSlotToContainer(new SlotFiltered("endoflames", myTile.getInternalInventory(), j + i * 3, 35 + j * 18, 85 + i * 18, ip.inventory));
+                addSlotToContainer(new SlotFiltered("endoflames", myTile.getFlowersInventory(), j + i * 3, 35 + j * 18, 85 + i * 18, ip.inventory));
             }
         }
         for (int i = 0; i < 3; ++i) {
             for (int j = 0; j < 3; ++j) {
-                addSlotToContainer(new SlotFiltered("entropinnyums", myTile.getInternalInventory(), j + i * 3 + 9, 107 + j * 18, 85 + i * 18, ip.inventory));
+                addSlotToContainer(new SlotFiltered("entropinnyums", myTile.getFlowersInventory(), j + i * 3 + 9, 107 + j * 18, 85 + i * 18, ip.inventory));
             }
         }
         for (int i = 0; i < 3; ++i) {
             for (int j = 0; j < 3; ++j) {
-                addSlotToContainer(new SlotFiltered("gourmaryllises", myTile.getInternalInventory(), j + i * 3 + 18, 179 + j * 18, 85 + i * 18, ip.inventory));
+                addSlotToContainer(new SlotFiltered("gourmaryllises", myTile.getFlowersInventory(), j + i * 3 + 18, 179 + j * 18, 85 + i * 18, ip.inventory));
             }
         }
     }

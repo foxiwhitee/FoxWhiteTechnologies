@@ -21,12 +21,13 @@ import net.minecraft.tileentity.TileEntityFurnace;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
+import vazkii.botania.api.mana.IManaPool;
 import vazkii.botania.api.mana.spark.ISparkAttachable;
 import vazkii.botania.api.mana.spark.ISparkEntity;
 
 import java.util.List;
 
-public class TileGreenhouse extends FoxBaseInvTile implements ISparkAttachable {
+public class TileGreenhouse extends FoxBaseInvTile implements ISparkAttachable, IManaPool {
     private static ItemStack tnt;
     private static ItemStack endoflame;
     private static ItemStack entropinnyum;
@@ -36,7 +37,7 @@ public class TileGreenhouse extends FoxBaseInvTile implements ISparkAttachable {
     private static final int gourmaryllisGenerating = 64;
     private final FoxInternalInventory inventory = new FoxInternalInventory(this, 9);
     private final FoxInternalInventory flowers = new FoxInternalInventory(this, 27);
-    private final FoxInternalInventory upgrades = new FoxInternalInventory(this, 3);
+    private final FoxInternalInventory upgrades = new FoxInternalInventory(this, 3, 1);
     private int mana, speedBonus, productivity, tick, resourceEfficiency = 1;
 
     public TileGreenhouse() {
@@ -85,14 +86,16 @@ public class TileGreenhouse extends FoxBaseInvTile implements ISparkAttachable {
             }
             int oldMana = this.mana;
             int temp = 0;
-            int consumedByEndoflame = consumeFlammableMaterial(toConsumeByEndoflame / resourceEfficiency);
-            int consumedByEntropinnyum = consumeTNT(toConsumeByEntropinnyum / resourceEfficiency);
-            int consumedByGourmaryllis = consumeFood(toConsumeByGourmaryllis / resourceEfficiency);
+            int consumedByEndoflame = consumeFlammableMaterial(toConsumeByEndoflame > 0 && toConsumeByEndoflame / resourceEfficiency < 1 ? 1 : toConsumeByEndoflame / resourceEfficiency);
+            int consumedByEntropinnyum = consumeTNT(toConsumeByEntropinnyum > 0 && toConsumeByEntropinnyum / resourceEfficiency < 1 ? 1 : toConsumeByEntropinnyum / resourceEfficiency);
+            int consumedByGourmaryllis = consumeFood(toConsumeByGourmaryllis > 0 && toConsumeByGourmaryllis / resourceEfficiency < 1 ? 1 : toConsumeByGourmaryllis / resourceEfficiency);
             temp += consumedByEndoflame * endoflameGenerating;
             temp += consumedByEntropinnyum * entropinnyumGenerating;
             temp += consumedByGourmaryllis * gourmaryllisGenerating;
-
-            this.mana += temp - (temp * WTConfig.greenhouseGenerationLoss / 100) + (temp * productivity / 100);
+            int add = (int)(temp * (double)(productivity / 100));
+            temp += add;
+            int sub = (int)(temp * (double)(WTConfig.greenhouseGenerationLoss / 100));
+            this.mana += temp - sub;
             if (oldMana != mana) {
                 markForUpdate();
             }
@@ -110,7 +113,7 @@ public class TileGreenhouse extends FoxBaseInvTile implements ISparkAttachable {
             if (stack != null && stack.getItem() instanceof ItemFood) {
                 int c = Math.min(count, stack.stackSize);
                 int val = ((ItemFood)stack.getItem()).func_150905_g(stack);
-                saturation += val * val;
+                saturation += val * val * c;
                 count -= c;
                 stack.stackSize -= c;
                 if (stack.stackSize <= 0) {
@@ -168,13 +171,17 @@ public class TileGreenhouse extends FoxBaseInvTile implements ISparkAttachable {
     }
 
     private boolean stackEquals(ItemStack stack1, ItemStack stack2) {
-        return stack1.getItem() == stack2.getItem() &&
-            stack1.getItemDamage() == stack2.getItemDamage() &&
-            stack1.getTagCompound().equals(stack2.getTagCompound());
+        boolean equals = stack1 != null && stack2 != null && stack1.getItem() == stack2.getItem() &&
+            stack1.getItemDamage() == stack2.getItemDamage();
+        if (equals && stack1.getTagCompound() != null && stack2.getTagCompound() != null) {
+            equals = stack1.getTagCompound().equals(stack2.getTagCompound());
+        }
+        return equals;
     }
 
     @Override
     public void onChangeInventory(IInventory iInventory, int i, InvOperation invOperation, ItemStack itemStack, ItemStack itemStack1) {
+        tick = 0;
         if (iInventory == upgrades) {
             this.speedBonus = 0;
             this.productivity = 0;
@@ -210,7 +217,7 @@ public class TileGreenhouse extends FoxBaseInvTile implements ISparkAttachable {
                     this.resourceEfficiency = Math.max(this.resourceEfficiency, 2 + stack.getItemDamage());
                 }
             }
-            this.speedBonus = Math.min(speedBonus, 100);
+            this.speedBonus = Math.min(speedBonus, WTConfig.greenhouseMaxSpeedBonus);
         }
     }
 
@@ -300,10 +307,10 @@ public class TileGreenhouse extends FoxBaseInvTile implements ISparkAttachable {
 
     @Override
     public void recieveMana(int i) {
-        if (mana > 0) {
+        if (i > 0) {
             return;
         }
-        this.mana = Math.max(0, this.getCurrentMana() + mana);
+        this.mana = Math.max(0, i + mana);
         markForUpdate();
     }
 
@@ -340,5 +347,10 @@ public class TileGreenhouse extends FoxBaseInvTile implements ISparkAttachable {
                 drops.add(is);
             }
         }
+    }
+
+    @Override
+    public boolean isOutputtingPower() {
+        return false;
     }
 }

@@ -51,20 +51,61 @@ public class WTConfig {
     @ConfigValue(category = "Mechanic.ElvenTrade", name = "speed", min = "1", desc = "How many seconds will it take to create an item?")
     public static int speedElvenTrade = 5;
 
+    @ConfigValue(category = "Mechanic.ElvenTrade", min = "1", max = "100", name = "maxSpeedBonus", desc = "Speed bonus limit from speed upgrades")
+    public static int elvenTradeMaxSpeedBonus = 80;
+
+    @ConfigValue(category = "Mechanic.ElvenTrade", name = "hasProductivity", desc = "Does the block have productivity?")
+    public static boolean elvenTradeHasProductivity = true;
+
+
     @ConfigValue(category = "Mechanic.MalachitePlate", name = "speed", min = "1", desc = "How many seconds will it take to create an item?")
     public static int speedMalachitePlate = 5;
+
+    @ConfigValue(category = "Mechanic.MalachitePlate", min = "1", max = "100", name = "maxSpeedBonus", desc = "Speed bonus limit from speed upgrades")
+    public static int malachitePlateMaxSpeedBonus = 80;
+
+    @ConfigValue(category = "Mechanic.MalachitePlate", name = "hasProductivity", desc = "Does the block have productivity?")
+    public static boolean malachitePlateHasProductivity = true;
+
 
     @ConfigValue(category = "Mechanic.ManaPool", name = "speed", min = "1", desc = "How many seconds will it take to create an item?")
     public static int speedManaPool = 5;
 
+    @ConfigValue(category = "Mechanic.ManaPool", min = "1", max = "100", name = "maxSpeedBonus", desc = "Speed bonus limit from speed upgrades")
+    public static int manaPoolMaxSpeedBonus = 80;
+
+    @ConfigValue(category = "Mechanic.ManaPool", name = "hasProductivity", desc = "Does the block have productivity?")
+    public static boolean manaPoolHasProductivity = true;
+
+
     @ConfigValue(category = "Mechanic.Petals", name = "speed", min = "1", desc = "How many seconds will it take to create an item?")
     public static int speedPetals = 5;
+
+    @ConfigValue(category = "Mechanic.Petals", min = "1", max = "100", name = "maxSpeedBonus", desc = "Speed bonus limit from speed upgrades")
+    public static int petalsMaxSpeedBonus = 80;
+
+    @ConfigValue(category = "Mechanic.Petals", name = "hasProductivity", desc = "Does the block have productivity?")
+    public static boolean petalsHasProductivity = true;
+
 
     @ConfigValue(category = "Mechanic.PureDaisy", name = "speed", min = "1", desc = "How many seconds will it take to create an item?")
     public static int speedPureDaisy = 5;
 
+    @ConfigValue(category = "Mechanic.PureDaisy", min = "1", max = "100", name = "maxSpeedBonus", desc = "Speed bonus limit from speed upgrades")
+    public static int pureDaisyMaxSpeedBonus = 80;
+
+    @ConfigValue(category = "Mechanic.PureDaisy", name = "hasProductivity", desc = "Does the block have productivity?")
+    public static boolean pureDaisyHasProductivity = true;
+
+
     @ConfigValue(category = "Mechanic.RuneAltar", name = "speed", min = "1", desc = "How many seconds will it take to create an item?")
     public static int speedRuneAltar = 5;
+
+    @ConfigValue(category = "Mechanic.RuneAltar", min = "1", max = "100", name = "maxSpeedBonus", desc = "Speed bonus limit from speed upgrades")
+    public static int runeAltarMaxSpeedBonus = 80;
+
+    @ConfigValue(category = "Mechanic.RuneAltar", name = "hasProductivity", desc = "Does the block have productivity?")
+    public static boolean runeAltarHasProductivity = true;
 
     @ConfigValue(category = "Mechanic.RuneAltar", desc = "Items that are considered runes are not removed when crafting. Template: modID:name:meta")
     public static String[] runes = {
@@ -104,5 +145,8 @@ public class WTConfig {
 
     @ConfigValue(category = "Greenhouse", name = "speed", desc = "How many seconds will it take to generate mana one time?")
     public static int greenhouseSpeed = 10;
+
+    @ConfigValue(category = "Greenhouse", min = "1", max = "100", name = "maxSpeedBonus", desc = "Speed bonus limit from speed upgrades")
+    public static int greenhouseMaxSpeedBonus = 50;
 
 }

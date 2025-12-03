@@ -35,13 +35,20 @@ public class ItemSpeedUpgrade extends DefaultItem {
                 default -> 0;
             }));
             p_77624_3_.add(StatCollector.translateToLocal("tooltip.upgradeFor"));
-            p_77624_3_.add("§3 - " + StatCollector.translateToLocal("tile.mechanicManaPool.name"));
-            p_77624_3_.add("§3 - " + StatCollector.translateToLocal("tile.mechanicRuneAltar.name"));
-            p_77624_3_.add("§3 - " + StatCollector.translateToLocal("tile.mechanicElvenTrade.name"));
-            p_77624_3_.add("§3 - " + StatCollector.translateToLocal("tile.mechanicMalachitePlate.name"));
-            p_77624_3_.add("§3 - " + StatCollector.translateToLocal("tile.mechanicPetals.name"));
-            p_77624_3_.add("§3 - " + StatCollector.translateToLocal("tile.mechanicPureDaisy.name"));
-            p_77624_3_.add("§3 - " + StatCollector.translateToLocal("tile.greenhouse.name"));
+            p_77624_3_.add("§3 - " + StatCollector.translateToLocal("tile.mechanicManaPool.name") +
+                " (" + StatCollector.translateToLocalFormatted("tooltip.maxSpeedBonus", WTConfig.manaPoolMaxSpeedBonus) + ")");
+            p_77624_3_.add("§3 - " + StatCollector.translateToLocal("tile.mechanicRuneAltar.name") +
+                " (" + StatCollector.translateToLocalFormatted("tooltip.maxSpeedBonus", WTConfig.runeAltarMaxSpeedBonus) + ")");
+            p_77624_3_.add("§3 - " + StatCollector.translateToLocal("tile.mechanicElvenTrade.name") +
+                " (" + StatCollector.translateToLocalFormatted("tooltip.maxSpeedBonus", WTConfig.elvenTradeMaxSpeedBonus) + ")");
+            p_77624_3_.add("§3 - " + StatCollector.translateToLocal("tile.mechanicMalachitePlate.name") +
+                " (" + StatCollector.translateToLocalFormatted("tooltip.maxSpeedBonus", WTConfig.malachitePlateMaxSpeedBonus) + ")");
+            p_77624_3_.add("§3 - " + StatCollector.translateToLocal("tile.mechanicPetals.name" +
+                " (" + StatCollector.translateToLocalFormatted("tooltip.maxSpeedBonus", WTConfig.petalsMaxSpeedBonus) + ")"));
+            p_77624_3_.add("§3 - " + StatCollector.translateToLocal("tile.mechanicPureDaisy.name") +
+                " (" + StatCollector.translateToLocalFormatted("tooltip.maxSpeedBonus", WTConfig.pureDaisyMaxSpeedBonus) + ")");
+            p_77624_3_.add("§3 - " + StatCollector.translateToLocal("tile.greenhouse.name") +
+                " (" + StatCollector.translateToLocalFormatted("tooltip.maxSpeedBonus", WTConfig.greenhouseMaxSpeedBonus) + ")");
         }
     }
 

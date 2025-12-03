@@ -110,4 +110,14 @@ public class TileMechanicRuneAltar extends TileMechanicManaBlock<CustomRecipeRun
     protected int getSpeed() {
         return 20 * WTConfig.speedRuneAltar;
     }
+
+    @Override
+    protected int getMaxSpeedBonus() {
+        return WTConfig.runeAltarMaxSpeedBonus;
+    }
+
+    @Override
+    protected boolean hasProductivity() {
+        return WTConfig.runeAltarHasProductivity;
+    }
 }

@@ -5,6 +5,8 @@ import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import foxiwhitee.FoxLib.utils.helpers.LocalizationUtils;
 import foxiwhitee.FoxWhiteTechnologies.FoxWTCore;
 import foxiwhitee.FoxWhiteTechnologies.blocks.BlockCustomManaPool;
+import foxiwhitee.FoxWhiteTechnologies.config.WTConfig;
+import foxiwhitee.FoxWhiteTechnologies.tile.TileGreenhouse;
 import foxiwhitee.FoxWhiteTechnologies.tile.mechanic.TileMechanicManaBlock;
 import foxiwhitee.FoxWhiteTechnologies.util.BlockPos;
 import net.minecraft.client.Minecraft;
@@ -76,6 +78,11 @@ public class ManaInfoRenderer {
                 String name = startRender(loc, tileEntity, 0.65);
                 int manaStorage = ((TileMechanicManaBlock<?>)tileEntity).getMaxMana();
                 int currentMana = ((TileMechanicManaBlock<?>)tileEntity).getCurrentMana();
+                endRender(minecraft, manaStorage, currentMana, "§6"+ name, name);
+            } else if (tileEntity instanceof TileGreenhouse) {
+                String name = startRender(loc, tileEntity, 0.65);
+                int manaStorage = WTConfig.manaAsgardPool;
+                int currentMana = ((TileGreenhouse)tileEntity).getCurrentMana();
                 endRender(minecraft, manaStorage, currentMana, "§6"+ name, name);
             }
         }

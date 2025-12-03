@@ -35,4 +35,14 @@ public class TileMechanicElvenTrade extends TileMechanicManaBlock<CustomRecipeEl
     protected int getSpeed() {
         return 20 * WTConfig.speedElvenTrade;
     }
+
+    @Override
+    protected int getMaxSpeedBonus() {
+        return WTConfig.elvenTradeMaxSpeedBonus;
+    }
+
+    @Override
+    protected boolean hasProductivity() {
+        return WTConfig.elvenTradeHasProductivity;
+    }
 }

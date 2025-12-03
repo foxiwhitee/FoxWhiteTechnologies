@@ -36,4 +36,14 @@ public class TileMechanicPureDaisy extends TileMechanicBlock<CustomRecipePureDai
     protected int getSpeed() {
         return 20 * WTConfig.speedPureDaisy;
     }
+
+    @Override
+    protected int getMaxSpeedBonus() {
+        return WTConfig.pureDaisyMaxSpeedBonus;
+    }
+
+    @Override
+    protected boolean hasProductivity() {
+        return WTConfig.pureDaisyHasProductivity;
+    }
 }

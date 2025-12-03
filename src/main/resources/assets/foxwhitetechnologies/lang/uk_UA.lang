@@ -51,9 +51,13 @@ item.infinityWaterUpgrade.name=Поліпшення нескінченої во�
 item.speedUpgrade.name=Поліпшення швидкості %s
 item.storageUpgrade.name=Поліпшення сховища %s
 
+item.resourcesEfficiencyUpgrade.name=Поліпшення русрсної ефективності %s
+
 item.malachite.name=Малахіт
 
 #Tooltips
+tooltip.maxSpeedBonus=Максимальний бонус швидкості %s%%
+
 tooltip.greenhouse.description=§9Генерує ману з %s, %s та %s
 tooltip.greenhouse.loss=§9Втрачає §4%s%%§9 згенерованої мани
 

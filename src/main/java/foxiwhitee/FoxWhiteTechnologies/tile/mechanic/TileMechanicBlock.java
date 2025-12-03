@@ -36,28 +36,31 @@ public abstract class TileMechanicBlock<T extends IBotanyRecipe> extends FoxBase
 
     @TileEvent(TileEventType.TICK)
     public void tick() {
-        updateRecipeIfNeeded();
-        if (!productivityHistory.containsKey(currentRecipe)) {
-            productivityHistory.put(currentRecipe, 0.0);
-        }
-        if (currentRecipe != null && additionallyConditionForCrafting()) {
-            progress += 1;
-            if (!worldObj.isRemote) {
-                markForUpdate();
-            }
-            if (progress >= getRealSpeed()) {
-                if (productivity > 0) {
-                    productivityHistory.merge(currentRecipe, 1.0, Double::sum);
+        if (!worldObj.isRemote) {
+            updateRecipeIfNeeded();
+            if (hasProductivity()) {
+                if (!productivityHistory.containsKey(currentRecipe)) {
+                    productivityHistory.put(currentRecipe, 0.0);
                 }
-                if (!worldObj.isRemote) {
-                    int bonusCount = ProductivityUtil.check(productivityHistory, currentRecipe, productivity);
+            }
+            if (currentRecipe != null && additionallyConditionForCrafting()) {
+                progress += 1;
+                if (progress >= getRealSpeed()) {
+                    int bonusCount = 0;
+                    if (hasProductivity()) {
+                        if (productivity > 0) {
+                            productivityHistory.merge(currentRecipe, 1.0, Double::sum);
+                        }
+                        bonusCount = ProductivityUtil.check(productivityHistory, currentRecipe, productivity);
+                    }
                     craftRecipe(bonusCount);
+                    afterCrafting();
+                    updateRecipeIfNeeded();
                 }
-                afterCrafting();
+            } else {
+                progress = 0;
             }
-
-        } else {
-            progress = 0;
+            markForUpdate();
         }
     }
 
@@ -66,7 +69,6 @@ public abstract class TileMechanicBlock<T extends IBotanyRecipe> extends FoxBase
     }
 
     protected void afterCrafting() {
-        updateRecipeIfNeeded();
         progress = 0;
     }
 
@@ -114,7 +116,7 @@ public abstract class TileMechanicBlock<T extends IBotanyRecipe> extends FoxBase
                     };
                 }
             }
-            this.speedBonus = Math.min(speedBonus, 100);
+            this.speedBonus = Math.min(speedBonus, getMaxSpeedBonus());
         }
     }
 
@@ -217,13 +219,25 @@ public abstract class TileMechanicBlock<T extends IBotanyRecipe> extends FoxBase
 
     protected void insertOutput(ItemStack stack) {
         for (int i = 0; i < getInvOutSize(); i++) {
-            if (output.getStackInSlot(i) == null) {
+            ItemStack out = output.getStackInSlot(i);
+            if (out == null) {
                 output.setInventorySlotContents(i, stack);
                 return;
             }
-            if (output.getStackInSlot(i).isItemEqual(stack) &&
-                output.getStackInSlot(i).stackSize + stack.stackSize <= output.getStackInSlot(i).getMaxStackSize()) {
-                output.getStackInSlot(i).stackSize += stack.stackSize;
+            if (out.isItemEqual(stack) && out.getItemDamage() == stack.getItemDamage()) {
+                if (out.getTagCompound() != null && stack.getTagCompound() != null) {
+                    if (!out.getTagCompound().equals(stack.getTagCompound())) {
+                        continue;
+                    }
+                }
+                if (out.stackSize + stack.stackSize <= out.getMaxStackSize()) {
+                    out.stackSize += stack.stackSize;
+                } else {
+                    int c = out.getMaxStackSize() - out.stackSize;
+                    out.stackSize += c;
+                    stack.stackSize -= c;
+                    continue;
+                }
                 return;
             }
         }
@@ -242,6 +256,33 @@ public abstract class TileMechanicBlock<T extends IBotanyRecipe> extends FoxBase
         }
 
         currentRecipe = getRecipe(inputs);
+        if (currentRecipe == null) {
+            return;
+        }
+        boolean hasPlace = false;
+        ItemStack out = currentRecipe.getOutput().copy();
+        for (int i = 0; i < output.getSizeInventory(); i++) {
+            ItemStack stack = output.getStackInSlot(i);
+            if (stack == null) {
+                hasPlace = true;
+                break;
+            } else {
+                if (out.isItemEqual(stack) && out.getItemDamage() == stack.getItemDamage()) {
+                    if (out.getTagCompound() != null && stack.getTagCompound() != null) {
+                        if (!out.getTagCompound().equals(stack.getTagCompound())) {
+                            continue;
+                        }
+                    }
+                    if (out.stackSize + stack.stackSize <= out.getMaxStackSize()) {
+                        hasPlace = true;
+                        break;
+                    }
+                }
+            }
+        }
+        if (!hasPlace) {
+            currentRecipe = null;
+        }
     }
 
     protected T getRecipe(List<InvEntry> entries) {
@@ -401,6 +442,10 @@ public abstract class TileMechanicBlock<T extends IBotanyRecipe> extends FoxBase
     protected abstract int getInvOutSize();
 
     protected abstract int getSpeed();
+
+    protected abstract int getMaxSpeedBonus();
+
+    protected abstract boolean hasProductivity();
 
     protected static class InvEntry {
         public final int slot;

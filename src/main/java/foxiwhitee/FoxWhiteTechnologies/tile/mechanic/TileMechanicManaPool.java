@@ -144,4 +144,14 @@ public class TileMechanicManaPool extends TileMechanicManaBlock<CustomRecipeMana
     protected int getSpeed() {
         return 20 * WTConfig.speedManaPool;
     }
+
+    @Override
+    protected int getMaxSpeedBonus() {
+        return WTConfig.manaPoolMaxSpeedBonus;
+    }
+
+    @Override
+    protected boolean hasProductivity() {
+        return WTConfig.manaPoolHasProductivity;
+    }
 }

@@ -122,6 +122,7 @@ public class TileMechanicPetals extends TileMechanicBlock<CustomRecipePetals> im
     }
 
     @Override
+    @TileEvent(TileEventType.CLIENT_NBT_READ)
     public boolean readFromStream(ByteBuf data) {
         boolean changed = super.readFromStream(data);
         boolean oldInfinityWater = infinityWater;
@@ -140,6 +141,7 @@ public class TileMechanicPetals extends TileMechanicBlock<CustomRecipePetals> im
     }
 
     @Override
+    @TileEvent(TileEventType.CLIENT_NBT_WRITE)
     public void writeToStream(ByteBuf data) {
         super.writeToStream(data);
         data.writeBoolean(infinityWater);
@@ -170,20 +172,36 @@ public class TileMechanicPetals extends TileMechanicBlock<CustomRecipePetals> im
     }
 
     @Override
+    protected int getMaxSpeedBonus() {
+        return WTConfig.petalsMaxSpeedBonus;
+    }
+
+    @Override
+    protected boolean hasProductivity() {
+        return WTConfig.petalsHasProductivity;
+    }
+
+    @Override
     public int fill(ForgeDirection from, FluidStack resource, boolean doFill) {
         if (resource == null) return 0;
-        return tank.fill(resource, doFill);
+        int fill = tank.fill(resource, doFill);
+        markForUpdate();
+        return fill;
     }
 
     @Override
     public FluidStack drain(ForgeDirection from, FluidStack resource, boolean doDrain) {
         if (resource == null || !resource.isFluidEqual(tank.getFluid())) return null;
-        return tank.drain(resource.amount, doDrain);
+        FluidStack drain = tank.drain(resource.amount, doDrain);
+        markForUpdate();
+        return drain;
     }
 
     @Override
     public FluidStack drain(ForgeDirection from, int maxDrain, boolean doDrain) {
-        return tank.drain(maxDrain, doDrain);
+        FluidStack drain = tank.drain(maxDrain, doDrain);
+        markForUpdate();
+        return drain;
     }
 
     @Override

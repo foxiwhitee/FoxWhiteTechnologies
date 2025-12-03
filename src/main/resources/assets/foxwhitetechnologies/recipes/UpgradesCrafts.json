@@ -89,6 +89,24 @@
         "<foxwhitetechnologies:asgardianIngot>", "<foxwhitetechnologies:storageUpgrade.2>", "<foxwhitetechnologies:asgardianIngot>",
         "<foxwhitetechnologies:asgardianIngot>", "<foxwhitetechnologies:asgardPool>", "<foxwhitetechnologies:asgardianIngot>"
       ]
+    },
+    {
+      "type": "workbenchShaped",
+      "output": "<foxwhitetechnologies:resourcesEfficiencyUpgrade>",
+      "inputs": [
+        "<foxwhitetechnologies:asgardianIngot>", "<foxwhitetechnologies:malachite>", "<foxwhitetechnologies:asgardianIngot>",
+        "<foxwhitetechnologies:malachite>", "<foxlib:productivityCard.7>", "<foxwhitetechnologies:malachite>",
+        "<foxwhitetechnologies:asgardianIngot>", "<foxwhitetechnologies:malachite>", "<foxwhitetechnologies:asgardianIngot>"
+      ]
+    },
+    {
+      "type": "workbenchShaped",
+      "output": "<foxwhitetechnologies:resourcesEfficiencyUpgrade.1>",
+      "inputs": [
+        "<foxwhitetechnologies:asgardianBlock>", "<foxlib:productivityCard.5>", "<foxwhitetechnologies:asgardianBlock>",
+        "<foxlib:productivityCard.5>", "<foxwhitetechnologies:resourcesEfficiencyUpgrade>", "<foxlib:productivityCard.5>",
+        "<foxwhitetechnologies:asgardianBlock>", "<foxlib:productivityCard.5>", "<foxwhitetechnologies:asgardianBlock>"
+      ]
     }
   ]
 }

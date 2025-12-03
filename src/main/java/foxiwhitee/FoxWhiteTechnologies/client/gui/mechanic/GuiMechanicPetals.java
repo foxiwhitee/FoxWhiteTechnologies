@@ -28,7 +28,7 @@ public class GuiMechanicPetals extends GuiMechanicBlock {
             if (tile.isInfinityWater()) {
                 l = 91;
             } else {
-                l = ProductivityUtil.gauge(92, count, TileMechanicPetals.TANK_CAPACITY);
+                l = ProductivityUtil.gauge(91, count, TileMechanicPetals.TANK_CAPACITY);
             }
 
             UtilGui.drawTexture(offsetX + 87, offsetY + 194, 0, 337, (int) (l + 1.0D), 6, (int) (l + 1.0D), 6);

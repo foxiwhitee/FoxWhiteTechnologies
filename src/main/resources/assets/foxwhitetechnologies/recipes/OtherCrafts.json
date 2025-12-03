@@ -17,6 +17,15 @@
         "<Botania:storage.4>", "<Botania:manaTablet>", "<Botania:storage.4>",
         "<Botania:storage.2>", "<Botania:storage.4>", "<Botania:storage.2>"
       ]
+    },
+    {
+      "type": "workbenchShaped",
+      "output": "<foxwhitetechnologies:greenhouse>",
+      "inputs": [
+        "<Botania:gaiaHead>", "<foxwhitetechnologies:asgardPool>", "<Botania:gaiaHead>",
+        "<foxwhitetechnologies:asgardSpark>", "<foxlib:productivityCard.7>", "<foxwhitetechnologies:asgardSpark>",
+        "<foxwhitetechnologies:asgardianBlock>", "<Botania:enchantedSoil>", "<foxwhitetechnologies:asgardianBlock>"
+      ]
     }
   ]
 }

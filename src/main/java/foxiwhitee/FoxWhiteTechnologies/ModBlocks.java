@@ -103,7 +103,7 @@ public class ModBlocks {
             RegisterUtils.registerBlock(MALACHITE_ORE);
         }
         if (ContentConfig.enableGreenhouse) {
-            RegisterUtils.registerBlock(GREENHOUSE);
+            RegisterUtils.registerBlock(GREENHOUSE, ModItemBlock.class);
             RegisterUtils.registerTile(TileGreenhouse.class);
         }
     }

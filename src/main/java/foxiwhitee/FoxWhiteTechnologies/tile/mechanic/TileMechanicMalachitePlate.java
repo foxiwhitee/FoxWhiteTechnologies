@@ -30,4 +30,14 @@ public class TileMechanicMalachitePlate extends TileMechanicManaBlock<RecipeMala
     protected int getSpeed() {
         return 20 * WTConfig.speedMalachitePlate;
     }
+
+    @Override
+    protected int getMaxSpeedBonus() {
+        return WTConfig.malachitePlateMaxSpeedBonus;
+    }
+
+    @Override
+    protected boolean hasProductivity() {
+        return WTConfig.malachitePlateHasProductivity;
+    }
 }

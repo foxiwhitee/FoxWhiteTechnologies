@@ -51,9 +51,13 @@ item.infinityWaterUpgrade.name=Infinity Water Upgrade
 item.speedUpgrade.name=Speed Upgrade %s
 item.storageUpgrade.name=Storage Upgrade %s
 
+item.resourcesEfficiencyUpgrade.name=Resources Efficiency Upgrade %s
+
 item.malachite.name=Malachite
 
 #Tooltips
+tooltip.maxSpeedBonus=Maximum speed bonus %s%%
+
 tooltip.greenhouse.description=§9Generates mana from %s, %s, and %s
 tooltip.greenhouse.loss=§9Loses §4%s%%§9 of generated mana
 
